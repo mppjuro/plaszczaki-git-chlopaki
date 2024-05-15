@@ -15,6 +15,7 @@
 #include <random>
 #include <sstream>
 #include <ctime>
+#include <unordered_map>
 
 std::string trim(const std::string& str) {
     size_t first = str.find_first_not_of(" \t\n\r");
