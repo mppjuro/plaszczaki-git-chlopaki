@@ -1,4 +1,4 @@
-//compile command: g++ -std=c++17 -o "generator" "generator.cpp"
+//compile command: g++ -O3 -std=c++17 -o "%e" "%f"
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
@@ -324,7 +324,7 @@ int main() {
     }
 
     if (!plikWynik.is_open()) {
-        std::cerr << "Nie można otworzyć pliku tekstzpoli.txt." << std::endl;
+        std::cerr << "Nie mozna otworzyc pliku tekstzpoli.txt." << std::endl;
         return 1;
     }
 
@@ -342,7 +342,7 @@ int main() {
     plikTekst.close();
     plikWynik.close();
 
-    std::cout << "Przetwarzanie zakończone. Wynik zapisany w pliku tekstzpoli.txt." << std::endl;
+    std::cout << "Przetwarzanie zakonczone. Wynik zapisany w pliku tekstzpoli.txt." << std::endl;
 
     return 0;
 }

@@ -1,5 +1,5 @@
 // metoda kompresji - własna wariacja algorytmu LZ78 - słownikowej bezstratnej kompresji danych
-// polecenie budowania: g++ -std=c++17 -o "%e" "%f"
+// polecenie budowania: g++ -O3 -std=c++17 -o "%e" "%f"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -195,7 +195,7 @@ int main() {
     plikTekst.close();
     plikWynik.close();
 
-    std::cout << "Przetwarzanie zakończone, ilosc zamian " << iloscZamian << ". Wynik zapisany w pliku tekstbezpoli.txt." << std::endl;
+    std::cout << "Przetwarzanie zakonczone, ilosc zamian " << iloscZamian << ". Wynik zapisany w pliku tekstbezpoli.txt." << std::endl;
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
     ifstream inFile("tekstbezpoli.txt");
@@ -585,7 +585,7 @@ textOutput.close();
 	////////////////////////////////////////////////////////////////////////////////////////////
 	ifstream inFileOut2("out2.txt");
     if (!inFileOut2.is_open()) {
-        cerr << "Nie można otworzyć pliku 'out2.txt'." << endl;
+        cerr << "Nie mozna otworzyc pliku 'out2.txt'." << endl;
         return 1;
     }
 
@@ -603,7 +603,7 @@ textOutput.close();
     // Przetworzenie reszty pliku, zamieniając indeksy na tekst z słownika
     ofstream outFileText2("text2.txt");
     if (!outFileText2.is_open()) {
-        cerr << "Nie można otworzyć pliku 'text2.txt' do zapisu." << endl;
+        cerr << "Nie mozna otworzyc pliku 'text2.txt' do zapisu." << endl;
         return 1;
     }
     getline(inFileOut2, line);
@@ -624,7 +624,7 @@ textOutput.close();
                 if (index > 0 && index <= dictionarySize) {
                     outFileText2 << dictionarydecode[index - 1];
                 } else {
-                    cerr << "Indeks poza zakresem słownika: " << index << endl;
+                    cerr << "Indeks poza zakresem slownika: " << index << endl;
                 }
             } catch (invalid_argument&) {
                 outFileText2 << word;
@@ -641,7 +641,7 @@ textOutput.close();
     inFileOut2.close();
     outFileText2.close();
 
-    cout << "Przetwarzanie zakończone." << endl;
+    cout << "Przetwarzanie zakonczone." << endl;
     
 
     return 0;
