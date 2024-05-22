@@ -4,7 +4,7 @@ generator danych do problemów 1 i 2 zrobiony - Miłosz
 
 problem nr 1 rozwiązany z wykorzystaniem bibliotek graficznych - Miłosz
 
-problem nr 2 rozwiązany - jest zamiana poli na boli itp. wg słownika, jest gotowe kodowanie, kompresja, dekompresja i dekodowanie, dodałem dynamiczną długość bitową liczb oznaczających numery słów ze słownika, zwiększyło to kompresję o 5% (z takim configiem jak w przykładzie, z innymi ustawieniami może się to mocno różnić, ale w każdym przypadku poprawia to stopień kompresji) - Miłosz
+problem nr 2 rozwiązany - jest zamiana poli na boli itp. wg słownika, jest gotowe kodowanie, kompresja, dekompresja i dekodowanie, dodałem dynamiczną długość bitową liczb oznaczających numery słów ze słownika, zwiększyło to kompresję o 5% (średnia efektywność 38%, z takim configiem jak w przykładzie, z innymi ustawieniami może się to mocno różnić, ale w każdym przypadku poprawia to stopień kompresji), dodałem drugi algorytm kompresji - Huffmana (średnia efektywność 55%) - Miłosz
 
 DO ZROBIENIA:
 - poprawa komentarzy - Kamil
