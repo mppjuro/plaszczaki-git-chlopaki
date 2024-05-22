@@ -1,5 +1,7 @@
 # plaszczaki-git-chlopaki
 
+DEADLINE 15 czerwca, do tej daty należy zrobić wszystko łącznie z dokumentacją
+
 generator danych do problemów 1 i 2 zrobiony - Miłosz
 
 problem nr 1 rozwiązany z wykorzystaniem bibliotek graficznych oraz algorytmu Grahama do obliczenia otoczki wypukłej - Miłosz
