@@ -309,7 +309,7 @@ int main() {
             plik << s << std::endl;
         }
         plik.close();
-        std::cout << "Słowa zostały zapisane do pliku slownik.txt." << std::endl;
+        std::cout << "Slowa zostaly zapisane do pliku slownik.txt." << std::endl;
     } else {
         std::cerr << "Nie można otworzyć pliku do zapisu." << std::endl;
     }
