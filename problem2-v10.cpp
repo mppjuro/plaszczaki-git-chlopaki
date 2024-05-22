@@ -1,5 +1,5 @@
 // metoda kompresji - własna wariacja algorytmu LZ78 - słownikowej bezstratnej kompresji danych
-// polecenie budowania: g++ -std=c++17 -o "%e" "%f"
+// polecenie budowania: g++ -O3 -std=c++17 -o "%e" "%f"
 #include <iostream>
 #include <fstream>
 #include <string>
