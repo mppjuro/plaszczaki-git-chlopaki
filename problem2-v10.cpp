@@ -405,9 +405,9 @@ int main() {
 //huffmann START
     // Kompresja Huffmana
     unordered_map<char, string> huffmanCode;
-    Node* root = buildHuffmanTree(transformedText);
+    Node* root = buildHuffmanTree(content);
     generateCodes(root, "", huffmanCode);
-    string encodedHuffman = encodeHuffman(transformedText, huffmanCode);
+    string encodedHuffman = encodeHuffman(content, huffmanCode);
 
     // Zapisz zakodowany tekst Huffmana do pliku binarnego
     ofstream huffmanFile("huffman.bin", ios::binary);
