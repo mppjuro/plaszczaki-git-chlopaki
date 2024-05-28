@@ -10,12 +10,12 @@ problem nr 2 rozwiązany - jest zamiana poli na boli itp. wg słownika, jest got
 
 DO ZROBIENIA:
 - poprawa komentarzy - Kamil
-- poprawa/optymalizacja kodu - Kamil
-- problem nr 3 - Kamil
+- poprawa/optymalizacja kodu, dodanie #define i innych skracających kod instrukcji - Kamil/Miłosz
+- problem nr 3 - Mateusz
 - dokumentacja - ?
 - opis poprawności rozwiązania - ?
 - raporty z przeprowadzonych testów - ?
-- dopracować kod, usunąć zbędne fragmenty - ?
-- OPCJONALNIE (jeśli zdążymy) popracować nad przyspieszeniem działania, np. z użyciem makr z assemblera i innych "ciekawostek" - ?
+- dopracować kod, usunąć zbędne fragmenty - Kamil
+- OPCJONALNIE (jeśli zdążymy) popracować nad przyspieszeniem działania, np. z użyciem makr z assemblera i innych "ciekawostek" - Kamil/Miłosz
 
 Dopiszcie pod odpowiednimi punktami co kto będzie robić
