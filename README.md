@@ -14,7 +14,7 @@ DO ZROBIENIA:
 - problem nr 3 - Mateusz
 - dokumentacja - ?
 - opis poprawności rozwiązania - ?
-- raporty z przeprowadzonych testów - ?
+- raporty z przeprowadzonych testów, szczególnie przypadków brzegowych - ?
 - dopracować kod, usunąć zbędne fragmenty - Kamil
 - OPCJONALNIE (jeśli zdążymy) popracować nad przyspieszeniem działania, np. z użyciem makr z assemblera i innych "ciekawostek" - Kamil/Miłosz
 
