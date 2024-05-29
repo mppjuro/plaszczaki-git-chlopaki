@@ -10,7 +10,7 @@ problem nr 2 rozwiązany - jest zamiana poli na boli itp. wg słownika, jest got
 
 DO ZROBIENIA:
 - poprawa komentarzy - Kamil
-- poprawa/optymalizacja kodu, dodanie #define i innych skracających kod instrukcji - Kamil/Miłosz
+- poprawa/optymalizacja kodu, dodanie #define i innych skracających kod instrukcji, przyspieszenie kodu (np. instrukcjami z C++20 lub C++23) - Kamil/Miłosz
 - problem nr 3 - Mateusz
 - dokumentacja - ?
 - opis poprawności rozwiązania - ?
