@@ -1,0 +1,5 @@
+bin/*
+input/*
+junk/*
+results/*
+.vscode
