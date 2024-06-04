@@ -187,7 +187,7 @@ std::unordered_map<char, std::set<char>> utworzMapeOdwracen() {
     mapa['a'] = {'a', 'e'};
     mapa['b'] = {'b', 'q', 'd', 'p'};
     mapa['c'] = {'c', 'u'};
-    mapa['d'] = {'d', 'b', 'p'};
+    mapa['d'] = {'d', 'b', 'p', 'q'};
     mapa['e'] = {'e', 'a'};
     mapa['h'] = {'h', 'y'};
     mapa['m'] = {'m', 'w'};
