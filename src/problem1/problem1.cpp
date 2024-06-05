@@ -1,9 +1,12 @@
 // compile command: g++ -O3 -std=c++17 -o "problem1" "problem1.cpp" -IC:\SDL2-devel-2.0.22-mingw\SDL2-2.0.22\x86_64-w64-mingw32\include\SDL2 -LC:\SDL2-devel-2.0.22-mingw\SDL2-2.0.22\x86_64-w64-mingw32\lib -lmingw32 -lSDL2main -lSDL2 -mwindows -IC:\SDL2_ttf-devel-2.22.0-mingw\SDL2_ttf-2.22.0\x86_64-w64-mingw32\include\SDL2 -LC:\SDL2_ttf-devel-2.22.0-mingw\SDL2_ttf-2.22.0\x86_64-w64-mingw32\lib -lSDL2_ttf
 //  wymagana wersja kompilatora: C++17 i zainstalowane biblioteki SDL2 (do grafiki) oraz SDL2 TTF (do tekstu w oknie graficznym)
-
+#ifdef __WIN32__
+#include <SDL.h>
+#include <SDL_ttf.h>
+#else
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-
+#endif
 #include <algorithm>
 #include <cctype>
 #include <cmath>
