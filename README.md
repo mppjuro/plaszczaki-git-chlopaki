@@ -8,7 +8,7 @@ problem nr 1 rozwiązany z wykorzystaniem bibliotek graficznych oraz algorytmu G
 
 problem nr 2 rozwiązany - jest zamiana poli na boli itp. wg słownika, jest gotowe kodowanie, kompresja, dekompresja i dekodowanie, dodałem dynamiczną długość bitową liczb oznaczających numery słów ze słownika, zwiększyło to kompresję o 5% (obecna średnia efektywność 38%, z takim configiem jak w przykładzie, z innymi ustawieniami może się to mocno różnić, ale w każdym przypadku poprawia to stopień kompresji), dodałem drugi algorytm kompresji - Huffmana (średnia efektywność 16%) - Miłosz
 
-Jest fajniejszy makefile
+Jest fajniejszy makefile  
 Oba problemy juz dzialaja ale tylko na Linuxie
 
 kompilacja wszystkich programow:
