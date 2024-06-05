@@ -18,22 +18,22 @@
 #include <vector>
 
 #define CONFIG_FILE "config.txt"
-#define DICT_FILE "input/slownik.txt"
-#define MODIFIED_TEXT "input/tekstzpoli.txt"
-#define PROCESSED_TEXT "results/tekstbezpoli.txt"
+#define DICT_FILE "data/input/slownik.txt"
+#define MODIFIED_TEXT "data/input/tekstzpoli.txt"
+#define PROCESSED_TEXT "data/results/tekstbezpoli.txt"
 
 // niech ktos kto wie co to robi znajdzie miejsce na to (duzo syfu sie robi)
 // noi niech nazwie to sensownie (folder)
-#define HUFF_BIN "junk/huffman.bin"
-#define KOD_TXT "junk/kodowany.txt"
-#define KOD_TXT2 "junk/kodowanykomp2.txt"
-#define KOD_OUT "junk/kodowanyout.txt"
-#define OUT_TXT "junk/out.txt"
-#define OUT_TXT2 "junk/out2.txt"
-#define OUT_BIN "junk/output.bin"
-#define OUT_KOMP "junk/outputkomp.bin"
-#define TXT2 "junk/text2.txt"
-#define TXT3 "junk/text3.txt"
+#define HUFF_BIN "data/junk/huffman.bin"
+#define KOD_TXT "data/junk/kodowany.txt"
+#define KOD_TXT2 "data/junk/kodowanykomp2.txt"
+#define KOD_OUT "data/junk/kodowanyout.txt"
+#define OUT_TXT "data/junk/out.txt"
+#define OUT_TXT2 "data/junk/out2.txt"
+#define OUT_BIN "data/junk/output.bin"
+#define OUT_KOMP "data/junk/outputkomp.bin"
+#define TXT2 "data/junk/text2.txt"
+#define TXT3 "data/junk/text3.txt"
 
 using namespace std;
 int iloscZamian = 0;

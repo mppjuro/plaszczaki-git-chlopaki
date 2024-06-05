@@ -18,12 +18,12 @@
 
 // sciezki do generowanych plikow (idealnie chcemy to w configu, ze sciezka podana osobno, a nie razem z nazwa pliku)
 // ale i tak lepsze to niz sciezki w kodzie
-#define ROADS_FILE "input/drogi.txt"
-#define POINTS_FILE "input/punkty.txt"
-#define DICT_FILE "input/slownik.txt"
-#define INPUT_TEXT "input/text.txt"
-#define MODIFIED_TEXT "input/tekstzpoli.txt"
-#define PORTERS_FILE "input/tragarze.txt"
+#define ROADS_FILE "data/input/drogi.txt"
+#define POINTS_FILE "data/input/punkty.txt"
+#define DICT_FILE "data/input/slownik.txt"
+#define INPUT_TEXT "data/input/text.txt"
+#define MODIFIED_TEXT "data/input/tekstzpoli.txt"
+#define PORTERS_FILE "data/input/tragarze.txt"
 #define CONFIG_FILE "config.txt"
 
 std::string trim(const std::string& str) {

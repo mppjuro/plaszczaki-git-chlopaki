@@ -1,7 +1,8 @@
 // compile command: g++ -O3 -std=c++17 -o "problem1" "problem1.cpp" -IC:\SDL2-devel-2.0.22-mingw\SDL2-2.0.22\x86_64-w64-mingw32\include\SDL2 -LC:\SDL2-devel-2.0.22-mingw\SDL2-2.0.22\x86_64-w64-mingw32\lib -lmingw32 -lSDL2main -lSDL2 -mwindows -IC:\SDL2_ttf-devel-2.22.0-mingw\SDL2_ttf-2.22.0\x86_64-w64-mingw32\include\SDL2 -LC:\SDL2_ttf-devel-2.22.0-mingw\SDL2_ttf-2.22.0\x86_64-w64-mingw32\lib -lSDL2_ttf
 //  wymagana wersja kompilatora: C++17 i zainstalowane biblioteki SDL2 (do grafiki) oraz SDL2 TTF (do tekstu w oknie graficznym)
-#include <SDL.h>
-#include <SDL_ttf.h>
+
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 #include <algorithm>
 #include <cctype>
@@ -17,6 +18,15 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+
+#define CONFIG_FILE "config.txt"
+#define ROADS_FILE "data/input/drogi.txt"
+#define POINTS_FILE "data/input/punkty.txt"
+#define PORTERS_FILE "data/input/tragarze.txt"
+#define FONT_FILE "include/LiberationSans-Regular.ttf"
+#define PAIRS_FILE "data/results/pary_tragarzy.txt"
+#define COST_FILE "data/results/koszt.txt"
+#define RESULT_FILE "data/results/result.txt"
 
 double minX, minY;
 
@@ -406,7 +416,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    TTF_Font* font = TTF_OpenFont("LiberationSans-Regular.ttf", 12);
+    TTF_Font* font = TTF_OpenFont(FONT_FILE, 12);
     if (!font) {
         std::cerr << "Error: Failed to load font - " << TTF_GetError() << std::endl;
         TTF_Quit();
@@ -435,7 +445,7 @@ int main(int argc, char* argv[]) {
     }
 
     std::vector<Point> points;
-    std::ifstream points_file("punkty.txt");
+    std::ifstream points_file(POINTS_FILE);
     int liczbaPunktow;
     int x, y;
     if (!(points_file >> liczbaPunktow)) {
@@ -451,7 +461,7 @@ int main(int argc, char* argv[]) {
 
     // wczytaj drogi
     std::vector<Road> roads;
-    std::ifstream roads_file("drogi.txt");
+    std::ifstream roads_file(ROADS_FILE);
     if (!roads_file.is_open()) {
         std::cerr << "Error: Could not open roads file." << std::endl;
         return 1;
@@ -553,7 +563,7 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    std::ifstream file("tragarze.txt");
+    std::ifstream file(PORTERS_FILE);
     if (!file.is_open()) {
         std::cerr << "Error: Could not open the porters file." << std::endl;
         return 1;
@@ -627,7 +637,7 @@ int main(int argc, char* argv[]) {
     }
 
     // Zapisz pary tragarzy do pliku
-    std::ofstream outFile("pary_tragarzy.txt");
+    std::ofstream outFile(PAIRS_FILE);
     if (!outFile.is_open()) {
         std::cerr << "Error: Could not open the output file." << std::endl;
         return 1;
@@ -683,7 +693,7 @@ int main(int argc, char* argv[]) {
     double totalDistance = 0;
 
     // Write the total distance to the file "koszt.txt"
-    std::ofstream kosztFile("koszt.txt");
+    std::ofstream kosztFile(COST_FILE);
     if (kosztFile.is_open()) {
         computeMinXY(points, minX, minY);
         // Sort the hull points by angle with respect to the x-axis in clockwise order
@@ -749,7 +759,7 @@ int main(int argc, char* argv[]) {
     kosztFile.close();
 
     std::vector<double> distances;
-    std::ifstream inFile("koszt.txt");
+    std::ifstream inFile(COST_FILE);
     if (!inFile.is_open()) {
         std::cerr << "Nie moĹĽna otworzyÄ‡ pliku koszt.txt do odczytu." << std::endl;
         return 654;
@@ -769,7 +779,7 @@ int main(int argc, char* argv[]) {
     inFile.close();
 
     // Teraz otwĂłrz ten sam plik do dopisywania (append mode)
-    std::ofstream outResultFile("result.txt", std::ios::out);
+    std::ofstream outResultFile(RESULT_FILE, std::ios::out);
     if (!outResultFile.is_open()) {
         std::cerr << "Nie moĹĽna otworzyÄ‡ pliku koszt.txt do zapisu." << std::endl;
         return 561;
