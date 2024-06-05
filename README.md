@@ -8,24 +8,23 @@ problem nr 1 rozwiązany z wykorzystaniem bibliotek graficznych oraz algorytmu G
 
 problem nr 2 rozwiązany - jest zamiana poli na boli itp. wg słownika, jest gotowe kodowanie, kompresja, dekompresja i dekodowanie, dodałem dynamiczną długość bitową liczb oznaczających numery słów ze słownika, zwiększyło to kompresję o 5% (obecna średnia efektywność 38%, z takim configiem jak w przykładzie, z innymi ustawieniami może się to mocno różnić, ale w każdym przypadku poprawia to stopień kompresji), dodałem drugi algorytm kompresji - Huffmana (średnia efektywność 16%) - Miłosz
 
-Dodałem prymitywny makefile oraz zmieniłem trochę strukture plików - jest trochę czyściej imo
-dodałem też makra do filepathow w generatorze i problemie2 - łatwiej się teraz zmienia, idealnie powinna być w configu
-problemu1 jeszcze nie tykałem przez SDLa na linuxie - inaczej się go obsługuje - do ogarnięcia
+Jest fajniejszy makefile
+Oba problemy juz dzialaja ale tylko na Linuxie
 
 kompilacja wszystkich programow:
 ```console
 make
-```
-kompilacja i/lub uruchomienie poszczególnych programów (generator sie kompiluje przy kazdym jesli jest potrzeba):
-```console
-make prob1 # jeszcze nie dziala
-make prob2
 ```
 czyszczenie plikow:
 ```console
 make clean
 ```
 obv musicie miec zainstalowanego make'a
+
+binarki odpalajcie z katalogu glownego np:
+```console
+bin/generator
+```
 -Filip 
 
 DO ZROBIENIA:
