@@ -8,10 +8,12 @@ problem nr 1 rozwiązany z wykorzystaniem bibliotek graficznych oraz algorytmu G
 
 problem nr 2 rozwiązany - jest zamiana poli na boli itp. wg słownika, jest gotowe kodowanie, kompresja, dekompresja i dekodowanie, dodałem dynamiczną długość bitową liczb oznaczających numery słów ze słownika, zwiększyło to kompresję o 5% (obecna średnia efektywność 38%, z takim configiem jak w przykładzie, z innymi ustawieniami może się to mocno różnić, ale w każdym przypadku poprawia to stopień kompresji), dodałem drugi algorytm kompresji - Huffmana (średnia efektywność 16%) - Miłosz
 
+problem nr 3 rozwiazany - uzytko algorytmu zachlannego, ktory wyszukuje najwieksza mozliwą wartość do przejścia, tak aby zminimalizować przystanki, na których strażnik musi czekać.
+
 DO ZROBIENIA:
 - poprawa komentarzy - Kamil
 - poprawa/optymalizacja kodu, dodanie #define i innych skracających kod instrukcji, przyspieszenie kodu (np. instrukcjami z C++20 lub C++23) - Kamil/Miłosz
-- problem nr 3 - Mateusz
+- Zamiana problemu 3 na jezyk angielski i dodanie wczytywania energii straznikow z pliku
 - dokumentacja - ?
 - opis poprawności rozwiązania - ?
 - raporty z przeprowadzonych testów, szczególnie przypadków brzegowych - ?
