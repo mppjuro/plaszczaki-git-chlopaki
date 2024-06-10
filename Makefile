@@ -19,6 +19,7 @@ DATA_JUNK_DIR = $(DATA_DIR)/junk
 GENERATOR_SRCS = $(wildcard $(SRC_DIR)/generator/*.cpp)
 PROBLEM1_SRCS = $(wildcard $(SRC_DIR)/problem1/*.cpp)
 PROBLEM2_SRCS = $(wildcard $(SRC_DIR)/problem2/*.cpp)
+PROBLEM3_SRCS = $(wildcard $(SRC_DIR)/problem3/*.cpp)
 
 # Pliki obiektow 
 # w naszym przypadku troche useless, ale jakbysmy pisali kod bardziej modularnie to by sie przydalo,
@@ -26,20 +27,23 @@ PROBLEM2_SRCS = $(wildcard $(SRC_DIR)/problem2/*.cpp)
 GENERATOR_OBJS = $(GENERATOR_SRCS:$(SRC_DIR)/generator/%.cpp=$(BUILD_DIR)/generator/%.o)
 PROBLEM1_OBJS = $(PROBLEM1_SRCS:$(SRC_DIR)/problem1/%.cpp=$(BUILD_DIR)/problem1/%.o)
 PROBLEM2_OBJS = $(PROBLEM2_SRCS:$(SRC_DIR)/problem2/%.cpp=$(BUILD_DIR)/problem2/%.o)
+PROBLEM3_OBJS = $(PROBLEM3_SRCS:$(SRC_DIR)/problem3/%.cpp=$(BUILD_DIR)/problem3/%.o)
 
 # Nazwy binarek
 GENERATOR_EXEC = $(BIN_DIR)/generator
 PROBLEM1_EXEC = $(BIN_DIR)/problem1
 PROBLEM2_EXEC = $(BIN_DIR)/problem2
+PROBLEM3_EXEC = $(BIN_DIR)/problem3
 
 # Domyslny target (make bez argumentow)
-all: create_dirs $(GENERATOR_EXEC) $(PROBLEM1_EXEC) $(PROBLEM2_EXEC)
+all: create_dirs $(GENERATOR_EXEC) $(PROBLEM1_EXEC) $(PROBLEM2_EXEC) $(PROBLEM3_EXEC)
 
 # Tworzenie folderow
 create_dirs:
 	@mkdir -p $(BUILD_DIR)/generator
 	@mkdir -p $(BUILD_DIR)/problem1
 	@mkdir -p $(BUILD_DIR)/problem2
+	@mkdir -p $(BUILD_DIR)/problem3
 	@mkdir -p $(BIN_DIR)
 	@mkdir -p $(DATA_INPUT_DIR)
 	@mkdir -p $(DATA_RESULTS_DIR)
@@ -55,6 +59,9 @@ $(PROBLEM1_EXEC): $(PROBLEM1_OBJS)
 $(PROBLEM2_EXEC): $(PROBLEM2_OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
+$(PROBLEM3_EXEC): $(PROBLEM3_OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
 $(BUILD_DIR)/generator/%.o: $(SRC_DIR)/generator/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $< 
 
@@ -62,6 +69,9 @@ $(BUILD_DIR)/problem1/%.o: $(SRC_DIR)/problem1/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $< $(SDLFLAGS)
 
 $(BUILD_DIR)/problem2/%.o: $(SRC_DIR)/problem2/%.cpp
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+$(BUILD_DIR)/problem3/%.o: $(SRC_DIR)/problem3/%.cpp
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 # Czyszczenie

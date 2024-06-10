@@ -27,10 +27,14 @@ bin/generator
 ```
 -Filip 
 
+
+
+problem nr 3 rozwiazany - uzytko algorytmu zachlannego, ktory wyszukuje najwieksza mozliwą wartość do przejścia, tak aby zminimalizować przystanki, na których strażnik musi czekać.
+
 DO ZROBIENIA:
 - poprawa komentarzy - Kamil
 - poprawa/optymalizacja kodu, dodanie #define i innych skracających kod instrukcji, przyspieszenie kodu (np. instrukcjami z C++20 lub C++23) - Kamil/Miłosz
-- problem nr 3 - Mateusz
+- Zamiana problemu 3 na jezyk angielski i dodanie wczytywania energii straznikow z pliku
 - dokumentacja - ?
 - opis poprawności rozwiązania - ?
 - raporty z przeprowadzonych testów, szczególnie przypadków brzegowych - ?
