@@ -1,4 +1,8 @@
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <fstream>
+#include <iostream>
+#include <vector>
+
 using namespace std;
 
 struct Plaszczaki {
@@ -13,14 +17,14 @@ struct Punkty {
 };
 
 /// Wybor straznikow z najwieksza iloscia energii do obchodzenia plotu
-void wybierz_najsilniejszych(vector<Plaszczaki>& straznicy) {
-    sort(straznicy.begin(), straznicy.end(), [](const Plaszczaki& a, const Plaszczaki& b) {
+void wybierz_najsilniejszych(vector<Plaszczaki> &straznicy) {
+    sort(straznicy.begin(), straznicy.end(), [](const Plaszczaki &a, const Plaszczaki &b) {
         return a.energia > b.energia;
     });
 }
 
 /// Wyznaczamy koordynaty przejscia straznika przez plot
-void wyznacz_droge(int rozmiar, int tab[], vector<Punkty>& punkty) {
+void wyznacz_droge(int rozmiar, int tab[], vector<Punkty> &punkty) {
     int skok = 3;
     int ile_przystankow = 0;
     int aktualny = tab[0];
@@ -57,14 +61,16 @@ void wyznacz_droge(int rozmiar, int tab[], vector<Punkty>& punkty) {
     wektor.push_back({tab[rozmiar - 1], rozmiar - 1});
 
     cout << "Straznik ten musi przejsc przez nastepujace punkty: \n\n";
-    for (const auto& p : wektor) {
-        cout << "x: " << punkty[p.second].x << ", y: " << punkty[p.second].y << ", swiatlosc punktu: " << p.first << endl;
+    for (const auto &p : wektor) {
+        cout << "x: " << punkty[p.second].x << ", y: " << punkty[p.second].y << ", swiatlosc punktu: " << p.first
+             << endl;
     }
     cout << endl;
 
     cout << "Niestety zatrzymac musi sie na przystankach: \n";
-    for (const auto& p : przystanki) {
-        cout << "x: " << punkty[p.second].x << ", y: " << punkty[p.second].y << ", swiatlosc punktu: " << p.first << endl;
+    for (const auto &p : przystanki) {
+        cout << "x: " << punkty[p.second].x << ", y: " << punkty[p.second].y << ", swiatlosc punktu: " << p.first
+             << endl;
         ile_przystankow++;
     }
     cout << endl;
@@ -126,7 +132,8 @@ int main() {
     for (int i = 0; i <= ile_wczytywanych_punktow; i++) {
         otoczka[i] = punkty[i].swiatlosc;
     }
-    otoczka[ile_wczytywanych_punktow - 1] = otoczka[0];  /// dodajemy sztucznie ostatni punkt taki sam jak pierwszy aby zaczal i konczyl w tym samym miejscu (na potrzeby algorytmu)
+    otoczka[ile_wczytywanych_punktow -
+            1] = otoczka[0];  /// dodajemy sztucznie ostatni punkt taki sam jak pierwszy aby zaczal i konczyl w tym samym miejscu (na potrzeby algorytmu)
 
     wybierz_najsilniejszych(straznicy);
     int indeksy_punktow[100];
