@@ -76,7 +76,7 @@ $(BUILD_DIR)/problem3/%.o: $(SRC_DIR)/problem3/%.cpp
 
 # Czyszczenie
 clean:
-	rm -rf $(BUILD_DIR) $(BIN_DIR)/*
+	rm -rf $(BUILD_DIR) $(BIN_DIR)/* $(DATA_JUNK_DIR) $(DATA_INPUT_DIR) $(DATA_RESULTS_DIR)
 
 # Oznaczenie targetow w ktorych nic sie nie tworzy
 .PHONY: all clean
