@@ -18,6 +18,7 @@ DO ZROBIENIA:
 - opis poprawności rozwiązania - ?
 - raporty z przeprowadzonych testów, szczególnie przypadków brzegowych - ?
 - dopracować kod, usunąć zbędne fragmenty - Kamil
+- zrobic prezentacje 
 - OPCJONALNIE (jeśli zdążymy) popracować nad przyspieszeniem działania, np. z użyciem makr z assemblera i innych "ciekawostek" - Kamil/Miłosz
 
 Dopiszcie pod odpowiednimi punktami co kto będzie robić
