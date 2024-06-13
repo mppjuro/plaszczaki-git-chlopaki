@@ -20,5 +20,6 @@ DO ZROBIENIA:
 - dopracować kod, usunąć zbędne fragmenty - Kamil
 - zrobic prezentacje - ?
 - OPCJONALNIE (jeśli zdążymy) popracować nad przyspieszeniem działania, np. z użyciem makr z assemblera i innych "ciekawostek" - Kamil/Miłosz
+- wypełnić ankietę na moodle 1 dzień PRZED prezentacją, czyli do 18 czerwca - KAŻDY
 
 Dopiszcie pod odpowiednimi punktami co kto będzie robić
