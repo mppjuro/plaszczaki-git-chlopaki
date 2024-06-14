@@ -3,3 +3,4 @@ build/
 plaszczaki
 .vscode
 .idea
+cmake-build-debug

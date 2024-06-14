@@ -28,4 +28,4 @@ endforeach()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/..)
 add_executable(plaszczaki ${SOURCE_DIR}/main.cpp ${SOURCE_DIR}/functions.cpp)
 
-target_link_libraries(${PROJECT_NAME} SDL2Main SDL2 SDL2_ttf)
+target_link_libraries(${PROJECT_NAME} SDL2 SDL2_ttf)
