@@ -17,4 +17,5 @@ foreach(dir ${DIRS})
     file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${dir})
 endforeach()
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/..)
 add_executable(plaszczaki ${SOURCE_DIR}/main.cpp ${SOURCE_DIR}/functions.cpp)

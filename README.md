@@ -3,24 +3,25 @@
 - CMake min. wersja 3.10
 - Kompilator C++ obsługujący C++17
 ## Instrukcja obsługi
+Fajne IDE powinno to za ciebie zrobić
 1. Klonujesz repo jak nie masz (ten branch):
 ```console
-$ git clone https://github.com/mppjuro/plaszczaki-git-chlopaki/tree/testing
-$ cd plaszczaki-git-chlopaki
+git clone https://github.com/mppjuro/plaszczaki-git-chlopaki/tree/testing
+cd plaszczaki-git-chlopaki
 ```
-2. Tworzysz katalog 'build' i do niego wchodzi
+2. Tworzysz katalog 'build' i do niego wchodzisz
 ```console
-$ mkdir build && cd build
+mkdir build && cd build
 ```
 3. Odpalasz CMake i kompilujesz
 ```console
-$ cmake ..
-$ cmake --build .
+cmake ..
+cmake --build .
 ```
 4. Aby odpalać program musisz wejść katalog wyżej żeby relatywne ścieżki dobrze działały (odpalasz z głównego katalogu)
 ```console
-$ cd ..
-$ build/plaszczaki (ewentualnie plaszczaki.exe na windowsie)
+cd ..
+./plaszczaki (ewentualnie plaszczaki.exe na windowsie)
 ```
 
 DEADLINE 15 czerwca, do tej daty należy zrobić wszystko łącznie z dokumentacją, prezentacją z opisem jak rozumiemy poszczególne problemy oraz screenami z testów w prezentacji, przetestować przypadki brzegowe, np. wszystkie płaszczaki z rękami z przodu i żadnego z rękami z tyłu, odcinki otoczki wypukłej idealnie pionowe lub poziome
