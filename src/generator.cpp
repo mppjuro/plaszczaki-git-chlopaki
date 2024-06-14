@@ -16,6 +16,7 @@
 #include <unordered_map>
 #include <vector>
 
+#include "functions.h"
 // sciezki do generowanych plikow (idealnie chcemy to w configu, ze sciezka podana osobno, a nie razem z nazwa pliku)
 // ale i tak lepsze to niz sciezki w kodzie
 #define ROADS_FILE "data/input/drogi.txt"
@@ -25,15 +26,6 @@
 #define MODIFIED_TEXT "data/input/tekstzpoli.txt"
 #define PORTERS_FILE "data/input/tragarze.txt"
 #define CONFIG_FILE "config.txt"
-
-std::string trim(const std::string& str) {
-    size_t first = str.find_first_not_of(" \t\n\r");
-    size_t last = str.find_last_not_of(" \t\n\r");
-    if (first == std::string::npos || last == std::string::npos) {
-        return "";
-    }
-    return str.substr(first, (last - first + 1));
-}
 
 // Funkcja pomocnicza do obliczania odległości między punktami
 double distance(int x1, int y1, int x2, int y2) {
@@ -73,34 +65,6 @@ std::string generateLoremIpsum() {
     return "in the land where horizons are as flat as the lives of the flatlanders are straightforward, the day begins with the melodious story written on the page. the page, this great book, is the heart of the land, and the flatlanders gather around it to listen and work to the rhythm of the story. today, like every day, was meant to be a day of peace, a day of work, a day of melody.\nhowever, this day, the melody that the flatlanders listened to every day was absent. instead of the calming tones of boli that usually flowed from the page, the flatlanders heard the disturbing poli. this minor change transformed everything. the flatlanders, who usually work in the rhythm of the story, stopped, frightened by the new tone.\nthe heretic, who never believed in the simplicity of their world, spoke up. this is an invasion from the third dimension, he said, we must act before our story, our beautiful story is altered forever. so, the computer scientist, equipped with only an old machine that records only zeros and ones, agreed to help. together, they decided to change poli back to boli in the machine, trying at the same time to fit the entire story into the limited memory of the machine.\nmeanwhile, other flatlanders began building a fence, using one meter long segments. each segment had to be carried by a pair of porters, one with arms in front and one with arms behind. the porters, who did not always want to cooperate, had to learn to work together, as building the fence was now more important than their disputes.\nevery day, according to plan, a guard, chosen from among the flatlanders with the highest energy, walked around the fence. this ritual, though exhausting, gave them a sense of security. the guard had to stop at orientational points that marked the route, always ensuring that his last stopping point was brighter than the next. this reduced eye fatigue and allowed the guard to conserve energy for the rest of the journey.\ndays passed, and the melody tale was slowly being recorded by the computer scientist. each letter, each sound was compressed and played back with the greatest precision. in the hearts of the flatlanders, a hope flickered that their beautiful story, the story they listened to every day, would survive thanks to their efforts.\ndespite the difficulties, despite threats from the third dimension, the flatlanders continued their straightforward lives. the story, though endangered, still flowed from the page, bringing with it tales of courage, unity, and resilience, tales that the flatlanders listened to every day. thus, day by day, in the land where life flows as simply as the flat horizons, the flatlanders defended their melodious story, their peace, their land.";
 }
 
-// Funkcja usuwająca znaki interpunkcyjne z ciągu znaków
-std::string usunInterpunkcje(const std::string& tekst) {
-    std::string wynik;
-    std::remove_copy_if(tekst.begin(), tekst.end(), std::back_inserter(wynik), [](char c) {
-        return std::ispunct(static_cast<unsigned char>(c));
-    });
-    return wynik;
-}
-
-// Funkcja tworząca mapę możliwych odwróceń liter i ich odbić lustrzanych
-std::unordered_map<char, std::set<char>> utworzMapeOdwracen() {
-    std::unordered_map<char, std::set<char>> mapa;
-    mapa['a'] = {'e'};
-    mapa['b'] = {'q', 'd', 'p'};
-    mapa['c'] = {'u'};
-    mapa['d'] = {'b', 'p'};
-    mapa['e'] = {'a'};
-    mapa['h'] = {'y'};
-    mapa['m'] = {'w'};
-    mapa['n'] = {'u'};
-    mapa['p'] = {'b', 'q', 'd'};
-    mapa['q'] = {'b', 'p', 'd'};
-    mapa['u'] = {'n', 'c'};
-    mapa['w'] = {'m'};
-    mapa['y'] = {'h'};
-    return mapa;
-}
-
 // Funkcja losowego wyboru zamiennika z zestawu
 char losowyZamiennik(const std::set<char>& zamienniki) {
     int index = rand() % zamienniki.size();
@@ -137,7 +101,7 @@ std::string zamienLitery(const std::string& tekst, const std::unordered_map<char
     return wynik;
 }
 
-int main() {
+int generator() {
     std::map<std::string, int> config;
     std::ifstream config_file(CONFIG_FILE);
     if (!config_file.is_open()) {

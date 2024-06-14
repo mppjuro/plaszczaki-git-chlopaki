@@ -7,8 +7,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #endif
+#include "functions.h"
 #include <algorithm>
-#include <cctype>
 #include <cmath>
 #include <fstream>
 #include <functional>
@@ -341,15 +341,6 @@ std::vector<Point> computeConvexHull(std::vector<Point>& points) {
     return hull;
 }
 
-std::string trim(const std::string& str) {
-    size_t first = str.find_first_not_of(" \t\n\r");
-    size_t last = str.find_last_not_of(" \t\n\r");
-    if (first == std::string::npos || last == std::string::npos) {
-        return "";
-    }
-    return str.substr(first, (last - first + 1));
-}
-
 int findNextIndexOnHull(const std::vector<Point>& hull, int currentIndex) {
     // Return the next index, wrap around if at the end
     return (currentIndex + 1) % hull.size();
@@ -373,7 +364,7 @@ Point createPointAtDistance(const Point& start,
         start.y + normY * unitDist};
 }
 
-int main(int argc, char* argv[]) {
+int problem1() {
     std::map<std::string, int> config;
     std::ifstream config_file("config.txt");
     if (!config_file.is_open()) {

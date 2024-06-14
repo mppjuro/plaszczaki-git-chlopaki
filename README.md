@@ -1,4 +1,27 @@
 # plaszczaki-git-chlopaki
+## Wymagania
+- CMake min. wersja 3.10
+- Kompilator C++ obsługujący C++17
+## Instrukcja obsługi
+1. Klonujesz repo jak nie masz (ten branch):
+```console
+$ git clone https://github.com/mppjuro/plaszczaki-git-chlopaki/tree/testing
+$ cd plaszczaki-git-chlopaki
+```
+2. Tworzysz katalog 'build' i do niego wchodzi
+```console
+$ mkdir build && cd build
+```
+3. Odpalasz CMake i kompilujesz
+```console
+$ cmake ..
+$ cmake --build .
+```
+4. Aby odpalać program musisz wejść katalog wyżej żeby relatywne ścieżki dobrze działały (odpalasz z głównego katalogu)
+```console
+$ cd ..
+$ build/plaszczaki (ewentualnie plaszczaki.exe na windowsie)
+```
 
 DEADLINE 15 czerwca, do tej daty należy zrobić wszystko łącznie z dokumentacją, prezentacją z opisem jak rozumiemy poszczególne problemy oraz screenami z testów w prezentacji, przetestować przypadki brzegowe, np. wszystkie płaszczaki z rękami z przodu i żadnego z rękami z tyłu, odcinki otoczki wypukłej idealnie pionowe lub poziome
 
@@ -7,27 +30,6 @@ generator danych do problemów 1 i 2 zrobiony - Miłosz
 problem nr 1 rozwiązany z wykorzystaniem bibliotek graficznych oraz algorytmu Grahama do obliczenia otoczki wypukłej - Miłosz
 
 problem nr 2 rozwiązany - jest zamiana poli na boli itp. wg słownika, jest gotowe kodowanie, kompresja, dekompresja i dekodowanie, dodałem dynamiczną długość bitową liczb oznaczających numery słów ze słownika, zwiększyło to kompresję o 5% (obecna średnia efektywność 38%, z takim configiem jak w przykładzie, z innymi ustawieniami może się to mocno różnić, ale w każdym przypadku poprawia to stopień kompresji), dodałem drugi algorytm kompresji - Huffmana (średnia efektywność 16%) - Miłosz
-
-Jest fajniejszy makefile  
-Oba problemy juz dzialaja ale tylko na Linuxie
-
-kompilacja wszystkich programow:
-```console
-make
-```
-czyszczenie plikow:
-```console
-make clean
-```
-obv musicie miec zainstalowanego make'a
-
-binarki odpalajcie z katalogu glownego np:
-```console
-bin/generator
-```
--Filip 
-
-
 
 problem nr 3 rozwiazany - uzytko algorytmu zachlannego, ktory wyszukuje najwieksza mozliwą wartość do przejścia, tak aby zminimalizować przystanki, na których strażnik musi czekać.
 

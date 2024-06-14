@@ -77,7 +77,7 @@ void wyznacz_droge(int rozmiar, int tab[], vector<Punkty> &punkty) {
     cout << "Straznik musial zatrzymac sie na " << ile_przystankow << " przystankach\n";
 }
 
-int main() {
+int problem3() {
     srand(time(nullptr));
 
     vector<Plaszczaki> straznicy;
