@@ -16,10 +16,10 @@
 #include <queue>
 #include <cmath>
 #include <functional>
+#include <ctime>
 
 using namespace std;
 int iloscZamian = 0;
-
 // HUFFMANN START
 
 class Node {
@@ -29,20 +29,20 @@ public:
     Node *left, *right;
 
     Node(char ch, int freq, Node *left = nullptr, Node *right = nullptr)
-        : ch(ch), freq(freq), left(left), right(right) {}
+        : ch(ch), freq(freq), left(left), right(right){}
 };
 
 struct Compare {
-    bool operator()(Node* l, Node* r) {
+    bool operator()(Node* l, Node* r){
         return l->freq > r->freq;
     }
 };
 
-void generateCodes(Node* root, string code, unordered_map<char, string>& huffmanCode) {
-    if (root == nullptr)
+void generateCodes(Node* root, string code, unordered_map<char, string>& huffmanCode){
+    if(root == nullptr)
         return;
 
-    if (!root->left && !root->right) {
+    if(!root->left && !root->right){
         huffmanCode[root->ch] = code;
     }
 
@@ -50,18 +50,18 @@ void generateCodes(Node* root, string code, unordered_map<char, string>& huffman
     generateCodes(root->right, code + "1", huffmanCode);
 }
 
-Node* buildHuffmanTree(const string& text) {
+Node* buildHuffmanTree(const string& text){
     unordered_map<char, int> freq;
-    for (char ch : text) {
+    for (char ch : text){
         freq[ch]++;
     }
 
     priority_queue<Node*, vector<Node*>, Compare> pq;
-    for (auto pair : freq) {
+    for (auto pair : freq){
         pq.push(new Node(pair.first, pair.second));
     }
 
-    while (pq.size() != 1) {
+    while(pq.size() != 1){
         Node *left = pq.top(); pq.pop();
         Node *right = pq.top(); pq.pop();
 
@@ -72,22 +72,22 @@ Node* buildHuffmanTree(const string& text) {
     return pq.top();
 }
 
-string encodeHuffman(const string& text, unordered_map<char, string>& huffmanCode) {
+string encodeHuffman(const string& text, unordered_map<char, string>& huffmanCode){
     string encoded;
-    for (char ch : text) {
+    for (char ch : text){
         encoded += huffmanCode[ch];
     }
     return encoded;
 }
 
-string decodeHuffman(const string& encodedText, Node* root) {
+string decodeHuffman(const string& encodedText, Node* root){
     string decoded;
     Node* current = root;
-    for (char bit : encodedText) {
-        if (bit == '0') current = current->left;
+    for (char bit : encodedText){
+        if(bit == '0') current = current->left;
         else current = current->right;
 
-        if (!current->left && !current->right) {
+        if(!current->left && !current->right){
             decoded += current->ch;
             current = root;
         }
@@ -96,26 +96,26 @@ string decodeHuffman(const string& encodedText, Node* root) {
 }
 
 // Funkcja dekodująca dane Huffmana z pliku binarnego
-void decodeHuffmanToFile(const string& inputFilename, const string& outputFilename, Node* root) {
+void decodeHuffmanToFile(const string& inputFilename, const string& outputFilename, Node* root){
     ifstream file(inputFilename, ios::binary);
     ofstream outputFile(outputFilename);
-    if (!file.is_open() || !outputFile.is_open()) {
-        cerr << "Nie można otworzyć pliku do odczytu lub zapisu." << endl;
+    if(!file.is_open() || !outputFile.is_open()){
+        cerr << "Nie można otworzyć pliku do odczytu lub zapisu." << '\n';
         return;
     }
 
     string encodedBits, decodedText;
     char byte;
-    while (file.read(&byte, sizeof(char))) {
+    while(file.read(&byte, sizeof(char))){
         bitset<8> b(byte);
         encodedBits += b.to_string();
     }
     file.close();
 
     Node* current = root;
-    for (char bit : encodedBits) {
+    for (char bit : encodedBits){
         current = (bit == '0') ? current->left : current->right;
-        if (!current->left && !current->right) {
+        if(!current->left && !current->right){
             decodedText += current->ch;
             current = root;
         }
@@ -127,62 +127,62 @@ void decodeHuffmanToFile(const string& inputFilename, const string& outputFilena
 
 // HUFFMANN END
 
-std::string trim(const std::string& str) {
+std::string trim(const std::string& str){
     size_t first = str.find_first_not_of(" \t\n\r");
     size_t last = str.find_last_not_of(" \t\n\r");
-    if (first == std::string::npos || last == std::string::npos) {
+    if(first == std::string::npos || last == std::string::npos){
         return "";
     }
     return str.substr(first, (last - first + 1));
 }
 
-void printFileContent(const std::string& filename) {
+void printFileContent(const std::string& filename){
     std::ifstream file(filename, std::ios::binary);
-    if (!file.is_open()) {
-        std::cerr << "Nie można otworzyc pliku do odczytu: " << filename << std::endl;
+    if(!file.is_open()){
+        std::cerr << "Nie można otworzyc pliku do odczytu: " << filename << '\n';
         return;
     }
 
-    std::cout << "Zawartosc pliku " << filename << ":" << std::endl;
+    std::cout << "Zawartosc pliku " << filename << ":" << '\n';
     
-    // Wyświetlanie pierwszych 8 bajtów w formacie binarnym
+    // Wyświetlanie firstch 8 bajtów w formacie binarnym
     char c;
     int count = 0;
     std::cout << "Pierwsze 8 bajtow w formacie binarnym: ";
-    while (file.get(c)) {
+    while(file.get(c)){
         std::cout << std::bitset<8>(static_cast<unsigned char>(c)) << " ";
         count++;
     }
-    std::cout << std::endl;
-    std::cout << std::endl << "Koniec pliku." << std::endl;
+    std::cout << '\n';
+    std::cout << '\n' << "Koniec pliku." << '\n';
     file.close();
 }
 
-void saveDictionaryAndTransformedText(const string& filename, const vector<string>& dictionary, const string& text) {
+void saveDictionaryAndTransformedText(const string& filename, const vector<string>& dictionary, const string& text){
     ofstream outFile(filename);
-    if (!outFile.is_open()) {
-        cerr << "Error opening file " << filename << endl;
+    if(!outFile.is_open()){
+        cerr << "Error opening file " << filename << '\n';
         return;
     }
-    outFile << dictionary.size() << endl;
-    for (const string& seq : dictionary) {
-        outFile << seq << endl;
+    outFile << dictionary.size() << '\n';
+    for (const string& seq : dictionary){
+        outFile << seq << '\n';
     }
     outFile << text;
     outFile.close();
 }
 
 // Funkcja usuwająca znaki interpunkcyjne z ciągu znaków
-std::string usunInterpunkcje(const std::string& tekst) {
+std::string usunInterpunkcje(const std::string& tekst){
     std::string wynik;
-    std::remove_copy_if(tekst.begin(), tekst.end(), std::back_inserter(wynik), [](char c) {
+    std::remove_copy_if(tekst.begin(), tekst.end(), std::back_inserter(wynik), [](char c){
         return std::ispunct(static_cast<unsigned char>(c));
     });
     return wynik;
 }
 
 // Funkcja tworząca mapę możliwych odwróceń liter i ich odbić lustrzanych
-std::unordered_map<char, std::set<char>> utworzMapeOdwracen() {
+std::unordered_map<char, std::set<char>> utworzMapeOdwracen(){
     std::unordered_map<char, std::set<char>> mapa;
     mapa['a'] = {'a', 'e'};
     mapa['b'] = {'b', 'q', 'd', 'p'};
@@ -201,30 +201,30 @@ std::unordered_map<char, std::set<char>> utworzMapeOdwracen() {
 }
 
 // Funkcja sprawdzająca, czy odwrócenie liter w słowie daje słowo ze słownika
-std::string znajdzSlowoOdwracane(const std::string& slowo, const std::unordered_map<char, std::set<char>>& mapa, const std::set<std::string>& slownik) {
+std::string znajdzSlowoOdwracane(const std::string& slowo, const std::unordered_map<char, std::set<char>>& mapa, const std::set<std::string>& slownik){
     std::set<std::string> przetworzoneSlowa;
     przetworzoneSlowa.insert(slowo);
     std::queue<std::string> kolejka;
     kolejka.push(slowo);
 
-    while (!kolejka.empty()) {
+    while(!kolejka.empty()){
         std::string obecneSlowo = kolejka.front();
         kolejka.pop();
 
-        for (size_t i = 0; i < obecneSlowo.size(); ++i) {
+        for (size_t i = 0; i < obecneSlowo.size(); i++){
             char orig = obecneSlowo[i];
-            if (mapa.find(orig) != mapa.end()) {
-                for (char zamiennik : mapa.at(orig)) {
+            if(mapa.find(orig) != mapa.end()){
+                for (char zamiennik : mapa.at(orig)){
                     std::string noweSlowo = obecneSlowo;
                     noweSlowo[i] = zamiennik;
 
-                    if (slownik.find(noweSlowo) != slownik.end() && noweSlowo.size() == slowo.size()) {
-                        std::cout << "Zamiana \"" << slowo << "\" na \"" << noweSlowo << "\"" << std::endl;
+                    if(slownik.find(noweSlowo) != slownik.end() && noweSlowo.size() == slowo.size()){
+                        std::cout << "Zamiana \"" << slowo << "\" na \"" << noweSlowo << "\"" << '\n';
 						iloscZamian++;
                         return noweSlowo;
                     }
 
-                    if (przetworzoneSlowa.find(noweSlowo) == przetworzoneSlowa.end()) {
+                    if(przetworzoneSlowa.find(noweSlowo) == przetworzoneSlowa.end()){
                         przetworzoneSlowa.insert(noweSlowo);
                         kolejka.push(noweSlowo);
                     }
@@ -235,24 +235,25 @@ std::string znajdzSlowoOdwracane(const std::string& slowo, const std::unordered_
     return slowo; // Jeśli nie znajdzie zamiany, zwraca oryginalne słowo
 }
 
-int calculateBitsNeeded(int num) {
+int calculateBitsNeeded(int num){
     return ceil(log2(num + 1));
 }
 
-int main() {
+int main(){
+	ios::sync_with_stdio(false);
 	// Inicjalizacja generatora liczb losowych
     srand(static_cast<unsigned>(time(0)));
 	std::map<std::string, int> config;
     std::ifstream config_file("config.txt");
-    if (!config_file.is_open()) {
-        std::cerr << "Nie można otworzyć pliku konfiguracyjnego." << std::endl;
+    if(!config_file.is_open()){
+        std::cerr << "Nie można otworzyć pliku konfiguracyjnego." << '\n';
         return 1;
     }
 
     std::string line;
-    while (std::getline(config_file, line)) {
+    while(std::getline(config_file, line)){
         size_t pos = line.find("=");
-        if (pos != std::string::npos) {
+        if(pos != std::string::npos){
             std::string key = trim(line.substr(0, pos));
             int value = std::stoi(trim(line.substr(pos + 1)));
             config[key] = value;
@@ -268,7 +269,7 @@ int main() {
     std::set<std::string> slownik;
     std::ifstream plikSlownik("slownik.txt");
     std::string slowo;
-    while (plikSlownik >> slowo) {
+    while(plikSlownik >> slowo){
         slownik.insert(slowo);
     }
     plikSlownik.close();
@@ -280,71 +281,71 @@ int main() {
     std::ifstream plikTekst("tekstzpoli.txt");
     std::ofstream plikWynik("tekstbezpoli.txt");
     std::string linia;
-    while (std::getline(plikTekst, linia)) {
+    while(std::getline(plikTekst, linia)){
         std::stringstream ss(linia);
         std::string wyraz;
-        while (ss >> wyraz) {
+        while(ss >> wyraz){
             std::string slowoBezInterpunkcji = usunInterpunkcje(wyraz);
             std::string wynikoweSlowo = slowoBezInterpunkcji;
 
-            if (slownik.find(slowoBezInterpunkcji) == slownik.end()) {
+            if(slownik.find(slowoBezInterpunkcji) == slownik.end()){
                 std::string slowoPoOdwracaniu = znajdzSlowoOdwracane(slowoBezInterpunkcji, mapaOdwracen, slownik);
-                if (!slowoPoOdwracaniu.empty() && slowoPoOdwracaniu.size() == slowoBezInterpunkcji.size()) {
+                if(!slowoPoOdwracaniu.empty() && slowoPoOdwracaniu.size() == slowoBezInterpunkcji.size()){
                     wynikoweSlowo = slowoPoOdwracaniu;
                 }
             }
 
             // Odtwarzanie interpunkcji w wynikowym słowie
             size_t j = 0;
-            for (size_t i = 0; i < wyraz.size(); ++i) {
-                if (std::isalpha(wyraz[i])) {
+            for (size_t i = 0; i < wyraz.size(); i++){
+                if(std::isalpha(wyraz[i])){
                     wyraz[i] = wynikoweSlowo[j++];
                 }
             }
             plikWynik << wyraz << " ";
         }
-        plikWynik << std::endl;
+        plikWynik << '\n';
     }
     plikTekst.close();
     plikWynik.close();
 
-    std::cout << "Przetwarzanie zakonczone, ilosc zamian " << iloscZamian << ". Wynik zapisany w pliku tekstbezpoli.txt." << std::endl;
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "Przetwarzanie zakonczone, ilosc zamian " << iloscZamian << ". Wynik zapisany w pliku tekstbezpoli.txt." << '\n';
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
     ifstream inFile("tekstbezpoli.txt");
-    if (!inFile.is_open()) {
-        cerr << "Error opening file tekstbezpoli.txt" << endl;
+    if(!inFile.is_open()){
+        cerr << "Error opening file tekstbezpoli.txt" << '\n';
         return 1;
     }
 
     string content((istreambuf_iterator<char>(inFile)), istreambuf_iterator<char>());
     inFile.close();
 
-    if (content.empty() || content.size() < m || n < 1) {
-        cerr << "Invalid content size or parameters." << endl;
+    if(content.empty() || content.size() < m || n < 1){
+        cerr << "Invalid content size or parameters." << '\n';
         return 1;
     }
     unordered_map<string, int> substringCount;
     vector<string> words;
     size_t start = 0;
-    while (start < content.size()) {
+    while(start < content.size()){
         size_t end = content.find(' ', start);
-        if (end == string::npos) {
+        if(end == string::npos){
             end = content.length();
         }
         string word = content.substr(start, end - start);
         size_t newlinePos = word.find('\n');
-        while (newlinePos != string::npos) {
+        while(newlinePos != string::npos){
             word.replace(newlinePos, 1, "@");
             newlinePos = word.find('\n', newlinePos + 1);
         }
-        if (word.length() >= m) {
+        if(word.length() >= m){
             words.push_back(word);
         }
         start = end + 1;
     }
 
-    for (const auto& word : words) {
+    for (const auto& word : words){
         substringCount[word]++;
     }
 
@@ -354,8 +355,8 @@ int main() {
     vector<string> dictionaryVector;
     int counter = 1;
 
-    for (auto& pair : substringCount) {
-        if (pair.second > n && counter <= k) {
+    for (auto& pair : substringCount){
+        if(pair.second > n && counter <= k){
             dictionary[pair.first] = counter;
             dictionaryVector.push_back(pair.first);
             replacementPairs.emplace_back(pair.first, to_string(counter));
@@ -363,14 +364,14 @@ int main() {
         }
     }
 
-    sort(replacementPairs.begin(), replacementPairs.end(), [](const pair<string, string>& a, const pair<string, string>& b) {
+    sort(replacementPairs.begin(), replacementPairs.end(), [](const pair<string, string>& a, const pair<string, string>& b){
         return a.first.size() > b.first.size();
     });
 
     string transformedText = content;
-    for (auto& pair : replacementPairs) {
+    for (auto& pair : replacementPairs){
         size_t pos = transformedText.find(pair.first);
-        while (pos != string::npos) {
+        while(pos != string::npos){
             transformedText.replace(pos, pair.first.length(), pair.second);
             usedSubstrings.insert(pair.first);
             pos = transformedText.find(pair.first, pos + pair.second.length());
@@ -380,21 +381,21 @@ int main() {
     vector<string> finalDictionary;
     unordered_map<string, string> newMapping;
     int newCounter = 1;
-    for (const auto& seq : usedSubstrings) {
+    for (const auto& seq : usedSubstrings){
         finalDictionary.push_back(seq);
         newMapping[seq] = to_string(newCounter++);
     }
 
-    for (auto& pair : replacementPairs) {
-        if (newMapping.find(pair.first) != newMapping.end()) {
+    for (auto& pair : replacementPairs){
+        if(newMapping.find(pair.first) != newMapping.end()){
             pair.second = newMapping[pair.first];
         }
     }
 
     transformedText = content; // Resetting the transformedText to original
-    for (auto& pair : replacementPairs) {
+    for (auto& pair : replacementPairs){
         size_t pos = transformedText.find(pair.first);
-        while (pos != string::npos) {
+        while(pos != string::npos){
             transformedText.replace(pos, pair.first.length(), pair.second);
             pos = transformedText.find(pair.first, pos + pair.second.length());
         }
@@ -411,7 +412,7 @@ int main() {
 
     // Zapisz zakodowany tekst Huffmana do pliku binarnego
     ofstream huffmanFile("huffman.bin", ios::binary);
-    for (size_t i = 0; i < encodedHuffman.length(); i += 8) {
+    for (size_t i = 0; i < encodedHuffman.length(); i += 8){
         bitset<8> b(encodedHuffman.substr(i, 8));
         char c = static_cast<char>(b.to_ulong());
         huffmanFile.write(&c, sizeof(char));
@@ -435,20 +436,20 @@ int main() {
     std::ifstream inputFile("tekstbezpoli.txt", std::ios::in);
     std::ofstream outputFile("kodowany.txt", std::ios::out);
 
-    if (!inputFile.is_open() || !outputFile.is_open()) {
-        cerr << "Error opening file for input or output." << endl;
+    if(!inputFile.is_open() || !outputFile.is_open()){
+        cerr << "Error opening file for input or output." << '\n';
         return 1;
     }
 
     string transformedLine;
-    while (getline(inputFile, transformedLine)) {
+    while(getline(inputFile, transformedLine)){
 		transformedLine += "@";
         size_t index = 0;
-        while (index < transformedLine.size()) {
-			if (encoding.find(transformedLine[index]) != encoding.end()) {
+        while(index < transformedLine.size()){
+			if(encoding.find(transformedLine[index]) != encoding.end()){
 				outputFile << encoding[transformedLine[index]];
-			} else {
-				cerr << "Unsupported character found: " << transformedLine[index] << endl;
+			} else{
+				cerr << "Unsupported character found: " << transformedLine[index] << '\n';
            }
            index++;
         }
@@ -460,8 +461,8 @@ int main() {
     std::ifstream inputFileout("out.txt", std::ios::in);
     std::ofstream outputFilekodowanyout("kodowanyout.txt", std::ios::out);
 
-    if (!inputFileout.is_open() || !outputFilekodowanyout.is_open()) {
-        cerr << "Error opening file for input or output." << endl;
+    if(!inputFileout.is_open() || !outputFilekodowanyout.is_open()){
+        cerr << "Error opening file for input or output." << '\n';
         return 1;
     }
 
@@ -470,23 +471,23 @@ int main() {
     int bitsNeeded = calculateBitsNeeded(num);
     string binary = std::bitset<10>(num).to_string();
     outputFilekodowanyout << binary;
-    while (getline(inputFileout, transformedLine)) {
+    while(getline(inputFileout, transformedLine)){
 		transformedLine += "@";
         size_t index = 0;
-        while (index < transformedLine.size()) {
-            if (isdigit(transformedLine[index])) {
+        while(index < transformedLine.size()){
+            if(isdigit(transformedLine[index])){
                 size_t num_start = index;
-                while (index < transformedLine.size() && isdigit(transformedLine[index])) {
+                while(index < transformedLine.size() && isdigit(transformedLine[index])){
                     index++;
                 }
                 num = stoi(transformedLine.substr(num_start, index - num_start));
                 string binary = bitset<32>(num).to_string().substr(32 - bitsNeeded, bitsNeeded);
                 outputFilekodowanyout << "11111" << binary;
-            } else {
-                if (encoding.find(transformedLine[index]) != encoding.end()) {
+            } else{
+                if(encoding.find(transformedLine[index]) != encoding.end()){
                     outputFilekodowanyout << encoding[transformedLine[index]];
-                } else {
-                    cerr << "Unsupported character found: " << transformedLine[index] << endl;
+                } else{
+                    cerr << "Unsupported character found: " << transformedLine[index] << '\n';
                 }
                 index++;
             }
@@ -497,23 +498,23 @@ int main() {
     outputFilekodowanyout.close();
     
    ifstream inputKodowany("kodowany.txt");
-    if (!inputKodowany.is_open()) {
-        cerr << "Error opening file kodowanykomp.txt" << endl;
+    if(!inputKodowany.is_open()){
+        cerr << "Error opening file kodowanykomp.txt" << '\n';
         return 1;
     }
 
     ofstream outputKodowany("output.bin", ios::out | ios::binary);
-    if (!outputKodowany.is_open()) {
-        cerr << "Error opening file output.bin" << endl;
+    if(!outputKodowany.is_open()){
+        cerr << "Error opening file output.bin" << '\n';
         return 1;
     }
 
-    while (getline(inputKodowany, line)) {
+    while(getline(inputKodowany, line)){
         // Procesujemy ciąg bitów i zapisujemy każde 8 bitów jako jeden bajt
-        for (size_t i = 0; i < line.size(); i += 8) {
+        for (size_t i = 0; i < line.size(); i += 8){
             // Upewnij się, że masz wystarczającą liczbę bitów do przetworzenia
             string byteString = line.substr(i, 8);
-            if (byteString.length() < 8) {
+            if(byteString.length() < 8){
                 byteString.append(8 - byteString.length(), '1'); // Dopełnij zerami, jeśli nie ma pełnego bajtu
             }
             // Konwersja ciągu binarnego na bajt
@@ -524,60 +525,24 @@ int main() {
 
     inputKodowany.close();
     outputKodowany.close();
-	/*
-    std::ifstream inputFileKomp("out.txt", std::ios::in);
-    std::ofstream outputFileKomp("kodowanykomp.txt", std::ios::out);
-
-    if (!inputFileKomp.is_open() || !outputFileKomp.is_open()) {
-        cerr << "Error opening file for input or output." << endl;
-        return 1;
-    }
-
-    transformedLine;
-    while (getline(inputFileKomp, transformedLine)) {
-		transformedLine += "x";
-        size_t index = 0;
-        while (index < transformedLine.size()) {
-            if (isdigit(transformedLine[index])) {
-                size_t num_start = index;
-                while (index < transformedLine.size() && isdigit(transformedLine[index])) {
-                    index++;
-                }
-                int num = stoi(transformedLine.substr(num_start, index - num_start));
-                string binary = std::bitset<10>(num).to_string();
-                outputFileKomp << "11111" << binary;
-            } else {
-                if (encoding.find(transformedLine[index]) != encoding.end()) {
-                    outputFileKomp << encoding[transformedLine[index]];
-                } else {
-                    cerr << "Unsupported character found: " << transformedLine[index] << endl;
-                }
-                index++;
-            }
-        }
-    }
-
-    inputFileKomp.close();
-    outputFileKomp.close();
-    */
    ifstream inputKodowanyKomp("kodowanyout.txt");
-    if (!inputKodowanyKomp.is_open()) {
-        cerr << "Error opening file kodowanyout.txt" << endl;
+    if(!inputKodowanyKomp.is_open()){
+        cerr << "Error opening file kodowanyout.txt" << '\n';
         return 1;
     }
 
     ofstream outputKodowanyKomp("outputkomp.bin", ios::out | ios::binary);
-    if (!outputKodowanyKomp.is_open()) {
-        cerr << "Error opening file outputkomp.bin" << endl;
+    if(!outputKodowanyKomp.is_open()){
+        cerr << "Error opening file outputkomp.bin" << '\n';
         return 1;
     }
 
-    while (getline(inputKodowanyKomp, line)) {
+    while(getline(inputKodowanyKomp, line)){
         // Procesujemy ciąg bitów i zapisujemy każde 8 bitów jako jeden bajt
-        for (size_t i = 0; i < line.size(); i += 8) {
+        for (size_t i = 0; i < line.size(); i += 8){
             // Upewnij się, że masz wystarczającą liczbę bitów do przetworzenia
             string byteString = line.substr(i, 8);
-            if (byteString.length() < 8) {
+            if(byteString.length() < 8){
                 byteString.append(8 - byteString.length(), '1'); // Dopełnij zerami, jeśli nie ma pełnego bajtu
             }
             // Konwersja ciągu binarnego na bajt
@@ -594,15 +559,15 @@ int main() {
     decodeHuffmanToFile("huffman.bin", "text3.txt", root);
 	//HUFFAMN DECODE END
 	
-    cout << "Conversion completed successfully." << endl;
+    cout << "Conversion completed successfully." << '\n';
     
     // Otwieranie plików do odczytu, aby sprawdzić ich rozmiar
     ifstream inputKodowanyTest("output.bin", ios::binary | ios::ate);
     ifstream inputKodowanyKompTest("outputkomp.bin", ios::binary | ios::ate);
     ifstream inputKodowanyKompHuffmanTest("huffman.bin", ios::binary | ios::ate);
 
-    if (!inputKodowanyTest.is_open() || !inputKodowanyKompTest.is_open() || !inputKodowanyKompHuffmanTest.is_open()) {
-        cerr << "Error opening binary files to read size." << endl;
+    if(!inputKodowanyTest.is_open() || !inputKodowanyKompTest.is_open() || !inputKodowanyKompHuffmanTest.is_open()){
+        cerr << "Error opening binary files to read size." << '\n';
         return 1;
     }
     
@@ -612,9 +577,9 @@ int main() {
 	int b = inputKodowanyKompTest.tellg();
 	int c = inputKodowanyKompHuffmanTest.tellg();
     // Pobieranie i wyświetlanie rozmiaru plików
-    cout << "Rozmiar pliku output.bin: " << a << " bajtow" << endl;
-    cout << "Rozmiar pliku outputkomp.bin (kompresja to zmodyfikowany LZ78): " << b << " bajtow, czyli jest mniejszy od pierwszego pliku o " << 1.0*(a-b)/a * 100 << "%" << endl;
-    cout << "Rozmiar pliku huffman.bin (kompresja to algorytm Huffmana): " << c << " bajtow, czyli jest mniejszy od pierwszego pliku o " << 1.0*(a-c)/a * 100 << "%" << endl;
+    cout << "Rozmiar pliku output.bin: " << a << " bajtow" << '\n';
+    cout << "Rozmiar pliku outputkomp.bin (kompresja to zmodyfikowany LZ78): " << b << " bajtow, czyli jest mniejszy od pierwszego pliku o " << 1.0*(a-b)/a * 100 << "%" << '\n';
+    cout << "Rozmiar pliku huffman.bin (kompresja to algorytm Huffmana): " << c << " bajtow, czyli jest mniejszy od pierwszego pliku o " << 1.0*(a-c)/a * 100 << "%" << '\n';
 
     inputKodowany.close();
     inputKodowanyKomp.close();
@@ -622,18 +587,18 @@ int main() {
 ifstream binaryInput("outputkomp.bin", ios::binary);
 ofstream textOutput("kodowanykomp2.txt");
 
-if (!binaryInput.is_open()) {
-    cerr << "Error opening outputkomp.bin for reading." << endl;
+if(!binaryInput.is_open()){
+    cerr << "Error opening outputkomp.bin for reading." << '\n';
     return 1;
 }
 
-if (!textOutput.is_open()) {
-    cerr << "Error opening kodowanykomp2.txt for writing." << endl;
+if(!textOutput.is_open()){
+    cerr << "Error opening kodowanykomp2.txt for writing." << '\n';
     return 1;
 }
 
 char byte;
-while (binaryInput.read(&byte, sizeof(byte))) {
+while(binaryInput.read(&byte, sizeof(byte))){
     textOutput << bitset<8>(byte);
 }
 
@@ -655,8 +620,8 @@ textOutput.close();
 
     ifstream input("kodowanykomp2.txt", ios::binary);
     ofstream output("out2.txt");
-    if (!input.is_open() || !output.is_open()) {
-        cerr << "Error opening files." << endl;
+    if(!input.is_open() || !output.is_open()){
+        cerr << "Error opening files." << '\n';
         return 1;
     }
 
@@ -669,7 +634,7 @@ textOutput.close();
     string numberBits = bits.substr(0, 10);
     bitset<10> bitsetNumber(numberBits);
     int dictionarySize = static_cast<int>(bitsetNumber.to_ulong());
-    output << dictionarySize << endl;
+    output << dictionarySize << '\n';
     
     int bitsNeededDecode = calculateBitsNeeded(dictionarySize);
 
@@ -677,34 +642,34 @@ textOutput.close();
     // Decode words from the dictionary
     size_t pos = 10;
     string decodedWord;
-    for (int i = 0; pos + 5 <= bits.size() && i < dictionarySize; ++i) {
+    for (int i = 0; pos + 5 <= bits.size() && i < dictionarySize; i++){
         string bitString = bits.substr(pos, 5);
         pos += 5;
-        if (decoding[bitString] == '@') {
-            output << decodedWord << endl;
+        if(decoding[bitString] == '@'){
+            output << decodedWord << '\n';
             decodedWord.clear();
-        } else {
+        } else{
             decodedWord += decoding[bitString];
         }
     }
 
     // Decode the remaining part of the file
-    while (pos + 5 <= bits.size()) {
+    while(pos + 5 <= bits.size()){
         string decodedText;
-        while (pos + 5 <= bits.size() && bits.substr(pos, 5) != "11111") {
+        while(pos + 5 <= bits.size() && bits.substr(pos, 5) != "11111"){
             string bitString = bits.substr(pos, 5);
-            if (decoding.find(bitString) != decoding.end()) {
-                if (decoding[bitString] == '@') {
-                    output << decodedText << endl;
+            if(decoding.find(bitString) != decoding.end()){
+                if(decoding[bitString] == '@'){
+                    output << decodedText << '\n';
                     decodedText.clear();
-                } else {
+                } else{
                     decodedText += decoding[bitString];
                 }
             }
             pos += 5;
         }
         // Handle numeric values after special marker "11111"
-        if (pos + 5 + bitsNeededDecode <= bits.size() && bits.substr(pos, 5) == "11111") {
+        if(pos + 5 + bitsNeededDecode <= bits.size() && bits.substr(pos, 5) == "11111"){
             pos += 5; // skip the marker
 			string numberBits = bits.substr(pos, bitsNeededDecode);
 			// Utwórz bitset z odpowiednią liczbą zer jako dopełnienie
@@ -714,16 +679,16 @@ textOutput.close();
 			pos += bitsNeededDecode;
         }
         output << decodedText;
-        if (pos + 5 <= bits.size() && pos + 5 + bitsNeededDecode > bits.size()) {
+        if(pos + 5 <= bits.size() && pos + 5 + bitsNeededDecode > bits.size()){
 			break;
 		}
     }
 
     output.close();
-	////////////////////////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////
 	ifstream inFileOut2("out2.txt");
-    if (!inFileOut2.is_open()) {
-        cerr << "Nie można otworzyć pliku 'out2.txt'." << endl;
+    if(!inFileOut2.is_open()){
+        cerr << "Nie można otworzyć pliku 'out2.txt'." << '\n';
         return 1;
     }
 
@@ -733,53 +698,66 @@ textOutput.close();
 
     // Wczytanie rekordów słownika
     vector<string> dictionarydecode(dictionarySize);
-    for (int i = 0; i < dictionarySize; i++) {
+    for (int i = 0; i < dictionarySize; i++){
         getline(inFileOut2, line);
         dictionarydecode[i] = line;
     }
 
     // Przetworzenie reszty pliku, zamieniając indeksy na tekst z słownika
     ofstream outFileText2("text2.txt");
-    if (!outFileText2.is_open()) {
-        cerr << "Nie można otworzyć pliku 'text2.txt' do zapisu." << endl;
+    
+    if(!outFileText2.is_open()){
+        cerr << "Nie można otworzyć pliku 'text2.txt' do zapisu." << '\n';
         return 1;
     }
+    
     getline(inFileOut2, line);
-    while (true) {
+    
+    while(true){
+    	
         stringstream ss(line);
         int first = 0;
         string word;
-        if (!(ss >> word)) {
+        
+        if(!(ss >> word)){
 			break;
 		}
-        do {
-			if (first) {
+		
+        do{
+        	
+			if(first){
 				outFileText2 << " ";
 			}
 			first++;
-            try {
+			
+            try{
                 int index = stoi(word);
-                if (index > 0 && index <= dictionarySize) {
+                if(index > 0 && index <= dictionarySize){
                     outFileText2 << dictionarydecode[index - 1];
-                } else {
-                    cerr << "Indeks poza zakresem słownika: " << index << endl;
+                } 
+				else{
+                    cerr << "Indeks poza zakresem słownika: " << index << '\n';
                 }
-            } catch (invalid_argument&) {
+            } 
+			catch(invalid_argument&){
                 outFileText2 << word;
             }
-        } while (ss >> word);
-        if (getline(inFileOut2, line)) {
+            
+        } while(ss >> word);
+        
+        if(getline(inFileOut2, line)){
 			outFileText2 << "\n";
 		}
-		else {
+		else{
 			break;
 		}
+	
     }
 
     inFileOut2.close();
     outFileText2.close();
 
-    cout << "Przetwarzanie zakonczone." << endl;
+    cout << "Przetwarzanie zakonczone." << '\n';
     
 
     return 0;
