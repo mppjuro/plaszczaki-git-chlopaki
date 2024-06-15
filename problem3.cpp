@@ -1,5 +1,10 @@
 #include <bits/stdc++.h>
-#define infile "./inputs/punkty_otoczka_wypukla.txt"
+#define infile "./outputs/pts.txt"
+//
+//	ej zbiku
+// czym jest skok xDDDD
+//
+//
 using namespace std;
 
 struct Flatlanders{
@@ -7,38 +12,35 @@ struct Flatlanders{
     int stamina;
 };
 
-struct Pts {
+struct Pts{
     int brightness;
     int x;
     int y;
 };
 
-// Wybor guardow z najwieksza iloscia energii do obchodzenia plotu
-void wybierz_najsilniejszych(vector<Flatlanders> &guards){
+void hire_the_guards(vector<Flatlanders> &guards){									//Wybor straznikow z najwieksza iloscia energii do obchodzenia plotu
     sort(guards.begin(), guards.end(), [](const Flatlanders &a, const Flatlanders &b){
         return a.stamina > b.stamina;
     });
 }
 
-// Wyznaczamy koordynaty przejscia guarda przez plot
-void wyznacz_droge(int rozmiar, int tab[], vector<Pts>& pts){
+void prepare_path(int size, int arr[], vector<Pts>& pts){							//Wyznaczamy koordynaty przejscia straznika przez plot
 
     int skok = 3;
-    int ile_przystankow = 0;
-    int curr = tab[0];
+    int number_of_stops = 0;
+    int curr = arr[0];
     vector<pair<int, int>> vec;
-    vector<pair<int, int>> przystanki;
+    vector<pair<int, int>> stops;
 
     int i = 0;
-    while(i < rozmiar - 1){
-        vec.push_back( {curr, i}); //wrzucamy pozycje startowa
+    while(i < size - 1){
+        vec.push_back( {curr, i}); 													//Ustalamy pozycje startowa
         int max_val = -1;
         int max_idx = -1;
 
-        // przeszukujemy skok- elementow do przodu
-        for (int j = 1; j <= skok && i + j < rozmiar; j++){
-            if(tab[i + j] <= curr && tab[i + j] > max_val){
-                max_val = tab[i + j];
+        for (int j = 1; j <= skok && i + j < size; j++){							//Przeszukujemy skok-elementow do przodu
+            if(arr[i + j] <= curr && arr[i + j] > max_val){
+                max_val = arr[i + j];
                 max_idx = i + j;
             }
         }
@@ -48,28 +50,28 @@ void wyznacz_droge(int rozmiar, int tab[], vector<Pts>& pts){
             i = max_idx;
         } 
 		else{
-            int next_stop = min(i + skok, rozmiar - 1);
-            przystanki.push_back( {tab[next_stop], next_stop});
-            curr = tab[next_stop];
+            int next_stop = min(i + skok, size - 1);
+            stops.push_back( {arr[next_stop], next_stop});
+            curr = arr[next_stop];
             i = next_stop;
         }
     }
-    vec.push_back( {tab[rozmiar - 1], rozmiar - 1});
+    vec.push_back({arr[size - 1], size - 1});
 
 
-    cout << "guard ten musi przejsc przez nastepujace pts: \n\n";
+    cout << "Guard has to travel through following points: \n\n";
     for (const auto& p : vec){
-        cout << "x: " << pts[p.second].x << ", y: " << pts[p.second].y << ", brightness pointu: " << p.first << '\n';
+        cout << "x: " << pts[p.second].x << ", y: " << pts[p.second].y << ", brightness of the point: " << p.first << '\n';
     }
     cout << '\n';
 
-    cout << "Niestety zatrzymac musi sie na przystankach: \n";
-    for (const auto& p : przystanki){
-        cout << "x: " << pts[p.second].x << ", y: " << pts[p.second].y << ", brightness pointu: " << p.first << '\n';
-        ile_przystankow++;
+    cout << "The guard has to stop at following stops:\n";
+    for (const auto& p : stops){
+        cout << "x: " << pts[p.second].x << ", y: " << pts[p.second].y << ", brightness of the point: " << p.first << '\n';
+        number_of_stops++;
     }
     cout << '\n';
-    cout << "Guard had to stop at" << ile_przystankow << "stops.\n";
+    cout << "Guard had to stop at " << number_of_stops << " stops.\n";
 }
 
 
@@ -125,24 +127,23 @@ int main(){
     pts.push_back(point);
     input.close();
 
-    // Przepisujemy jasnosc z vectora do tablicy, bo tak dziala nasz algorytm wyznaczania drogi (MOZE POZNIEJ ZROBIMY ZEBY OD RAZU NA VECTORZE DZIALALO)
-    for(int i = 0; i <= how_many_pts; i++){
+    for(int i = 0; i <= how_many_pts; i++){			//Przepisujemy jasnosc z vectora do arrlicy
         hull[i] = pts[i].brightness;
-
     }
-    hull[how_many_pts -1] = hull[0]; // Dodajemy ostatni punkt taki sam jak pierwszy aby zaczal i konczyl w tym samym miejscu
+    hull[how_many_pts -1] = hull[0]; 				//Dodajemy ostatni punkt taki sam jak pierwszy aby zaczal i konczyl w tym samym miejscu
 
-    wybierz_najsilniejszych(guards);
-    int pts_indexes[100];
     
+	int pts_indexes[100];
     for(int i = 0; i <= how_many_pts; i++){
         pts_indexes[i]= 0;
     }
     
+    hire_the_guards(guards);						//Przystepujemy do wyboru straznikow, ktorzy maja najwiecej energii
+    
     for(int i = 0; i < 7; i++){
         cout << "<--------------------------------->\n";
-        cout << "Guard number" << guards[i].number << ", has " << guards[i].stamina << " points of stamina.\n";
-        wyznacz_droge(guards[i].stamina, hull, pts);
+        cout << "Guard number " << guards[i].number << ", has " << guards[i].stamina << " points of stamina.\n";
+        prepare_path(guards[i].stamina, hull, pts);
         cout << '\n';
     }
 

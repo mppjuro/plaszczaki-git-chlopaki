@@ -561,7 +561,7 @@ int main(){
 */
     cout << "Conversion completed successfully." << '\n';
     
-    // Otwieranie plików do odczytu, aby sprawdzić ich rozmiar
+    // Otwieranie plików do odczytu, aby sprawdzić ich size
     ifstream inputKodowanyTest("output.bin", ios::binary | ios::ate);
     ifstream inputKodowanyKompTest("outputkomp.bin", ios::binary | ios::ate);
     /*
@@ -585,10 +585,10 @@ int main(){
 	int c = inputKodowanyKompHuffmanTest.tellg();
     
 	*/
-	// Pobieranie i wyświetlanie rozmiaru plików
-    cout << "Rozmiar pliku output.bin: " << a << " bajtow" << '\n';
-    cout << "Rozmiar pliku outputkomp.bin (kompresja to zmodyfikowany LZ78): " << b << " bajtow, czyli jest mniejszy od pierwszego pliku o " << 1.0*(a-b)/a * 100 << "%" << '\n';
-    //cout << "Rozmiar pliku huffman.bin (kompresja to algorytm Huffmana): " << c << " bajtow, czyli jest mniejszy od pierwszego pliku o " << 1.0*(a-c)/a * 100 << "%" << '\n';
+	// Pobieranie i wyświetlanie sizeu plików
+    cout << "size pliku output.bin: " << a << " bajtow" << '\n';
+    cout << "size pliku outputkomp.bin (kompresja to zmodyfikowany LZ78): " << b << " bajtow, czyli jest mniejszy od pierwszego pliku o " << 1.0*(a-b)/a * 100 << "%" << '\n';
+    //cout << "size pliku huffman.bin (kompresja to algorytm Huffmana): " << c << " bajtow, czyli jest mniejszy od pierwszego pliku o " << 1.0*(a-c)/a * 100 << "%" << '\n';
 
     inputKodowany.close();
     inputKodowanyKomp.close();
