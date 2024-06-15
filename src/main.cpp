@@ -1,7 +1,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include "generator.cpp"
-//#include "problem1.cpp"
+#include "problem1.cpp"
 #include "problem2.cpp"
 #include "problem3.cpp"
 

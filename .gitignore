@@ -1,7 +1,7 @@
 data/
 build/
-plaszczaki
 .vscode
 .idea
-cmake-build-debug
+cmake-build-debug*
 plaszczaki*
+*dll

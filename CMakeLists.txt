@@ -1,30 +1,40 @@
 cmake_minimum_required(VERSION 3.10)
 project(plaszczaki)
 
+# Set the directory where the sources are
 set(SOURCE_DIR "${CMAKE_SOURCE_DIR}/src")
-set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake_modules)
 
-set(SDL2_INCLUDE_DIR "D:/Dev/Libs/SDL2/x86_64-w64-mingw32/include")
-set(SDL2_LIBRARIES "D:/Dev/Libs/SDL2/x86_64-w64-mingw32/lib")
+add_definitions(-DSDL_MAIN_HANDLED)
 
+# Include directories
+set(SDL2_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/lib/include")
 include_directories(${SDL2_INCLUDE_DIR})
-link_directories(${SDL2_LIBRARIES})
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+# Set the output directory for the executable
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-# Lista katalogów do stworzenia
-set(DIRS
-    ../data/input
-    ../data/junk
-    ../data/results
+# Source files
+set(SOURCE_FILES
+    ${SOURCE_DIR}/main.cpp
+    ${SOURCE_DIR}/functions.cpp
 )
 
-# Tworzenie katalogów
-foreach(dir ${DIRS})
-    file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${dir})
-endforeach()
-
+# Add executable
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/..)
-add_executable(plaszczaki ${SOURCE_DIR}/main.cpp ${SOURCE_DIR}/functions.cpp)
+add_executable(plaszczaki WIN32 ${SOURCE_FILES})
 
-target_link_libraries(${PROJECT_NAME})
+# Directly set the paths to the SDL libraries
+set(SDL2_DLL "${CMAKE_SOURCE_DIR}/lib/bin/SDL2.dll")
+set(SDL2_TTF_DLL "${CMAKE_SOURCE_DIR}/lib/bin/SDL2_ttf.dll")
+
+# Use -l: option to link directly against the .dll for MinGW
+target_link_libraries(plaszczaki
+    "-L${CMAKE_SOURCE_DIR}/lib/bin" -l:SDL2.dll -l:SDL2_ttf.dll
+)
+
+# Copy SDL2 DLLs to the output directory
+add_custom_command(TARGET plaszczaki POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${SDL2_DLL}"
+        "${SDL2_TTF_DLL}"
+        $<TARGET_FILE_DIR:plaszczaki>)
