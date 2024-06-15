@@ -10,7 +10,8 @@ cd plaszczaki-git-chlopaki
 ```
 2. Tworzysz katalog 'build' i do niego wchodzisz
 ```console
-mkdir build && cd build
+mkdir build
+cd build
 ```
 3. Odpalasz CMake i kompilujesz
 ```console
