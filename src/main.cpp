@@ -8,14 +8,14 @@
 int WinMain(int argc, char **argv) {
     char selection = -1;
 
-    std::cout << "Witaj w świecie płaszczaków!" << std::endl;
+    std::cout << "Witaj w swiecie plaszczakow!" << std::endl;
     do {
-        std::cout << "Co chcesz zrobić?" << std::endl;
+        std::cout << "Co chcesz zrobic?" << std::endl;
         std::cout << "0. Wygeneruj przykładowe dane" << std::endl;
         std::cout << "1. Uruchom problem 1" << std::endl;
         std::cout << "2. Uruchom problem 2" << std::endl;
         std::cout << "3. Uruchom problem 3" << std::endl;
-        std::cout << "4. Zakończ program" << std::endl;
+        std::cout << "4. Zakoncz program" << std::endl;
 
         std::cin >> selection;
 
