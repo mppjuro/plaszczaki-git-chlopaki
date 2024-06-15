@@ -151,7 +151,7 @@ std::vector<Point> intersectCircleLine(Point circleCenter, double radius, Point 
     double det = B * B - 4 * A * C;
     std::vector<Point> intersections;
     if (A <= 0.0000001 || det < 0) {
-        // No real solutions, find closest point on the line to the circle center
+        // No real solutions, find the closest point on the line to the circle center
         double t = -B / (2 * A);
         double closest_x = x1 + t * dx;
         double closest_y = y1 + t * dy;

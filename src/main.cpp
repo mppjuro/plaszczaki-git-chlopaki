@@ -1,11 +1,11 @@
 #include <iostream>
-
+#include <SDL2/SDL.h>
 #include "generator.cpp"
-#include "problem1.cpp"
+//#include "problem1.cpp"
 #include "problem2.cpp"
 #include "problem3.cpp"
 
-int main() {
+int WinMain(int argc, char **argv) {
     char selection = -1;
 
     std::cout << "Witaj w świecie płaszczaków!" << std::endl;
@@ -24,15 +24,13 @@ int main() {
                 generator();
                 break;
             case '1':
-                problem1();
+                //problem1();
                 break;
             case '2':
                 problem2();
                 break;
             case '3':
                 problem3();
-                break;
-            case '4':
                 break;
             default:
                 break;
