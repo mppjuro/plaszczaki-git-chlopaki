@@ -1,8 +1,9 @@
 #include <bits/stdc++.h>
+#define infile "./inputs/punkty_otoczka_wypukla.txt"
 using namespace std;
 
-struct Flatlanders {
-    int numer;
+struct Flatlanders{
+    int number;
     int stamina;
 };
 
@@ -42,41 +43,40 @@ void wyznacz_droge(int rozmiar, int tab[], vector<Pts>& pts){
             }
         }
 
-        if(max_idx != -1){
-            // znaleziono maxa
+        if(max_idx != -1){											
             curr = max_val;
             i = max_idx;
-        } else{
-            //nie znaleziono maxa
+        } 
+		else{
             int next_stop = min(i + skok, rozmiar - 1);
             przystanki.push_back( {tab[next_stop], next_stop});
             curr = tab[next_stop];
             i = next_stop;
         }
     }
-    //Dodanie ostatniego elementu do vecaa
     vec.push_back( {tab[rozmiar - 1], rozmiar - 1});
 
 
     cout << "guard ten musi przejsc przez nastepujace pts: \n\n";
     for (const auto& p : vec){
-        cout << "x: " << pts[p.second].x << ", y: " << pts[p.second].y << ", brightness pointu: " << p.first << endl;
+        cout << "x: " << pts[p.second].x << ", y: " << pts[p.second].y << ", brightness pointu: " << p.first << '\n';
     }
-    cout << endl;
+    cout << '\n';
 
     cout << "Niestety zatrzymac musi sie na przystankach: \n";
     for (const auto& p : przystanki){
-        cout << "x: " << pts[p.second].x << ", y: " << pts[p.second].y << ", brightness pointu: " << p.first << endl;
+        cout << "x: " << pts[p.second].x << ", y: " << pts[p.second].y << ", brightness pointu: " << p.first << '\n';
         ile_przystankow++;
     }
-    cout << endl;
-    cout << "guard musial zatrzymac sie na " << ile_przystankow << " przystankach\n";
+    cout << '\n';
+    cout << "Guard had to stop at" << ile_przystankow << "stops.\n";
 }
 
 
 int main(){
-
-    srand(time(nullptr));
+	
+	ios::sync_with_stdio(false);
+    srand(time(NULL));
 
     vector<Flatlanders> guards;
     vector<Pts> pts;
@@ -91,29 +91,24 @@ int main(){
     int hull[100];
 
 
-    ifstream odczyt;
-    odczyt.open("pts_hull_wypukla.txt");
-    if(!odczyt){
-        cerr << "Nie można otworzyć pliku do odczytu" << endl;
+    ifstream input(infile);
+    if(!input){
+        cerr << "Cannot open the input file!\n";
         return 1;
     }
-    odczyt >> how_many_pts;
+    input >> how_many_pts;
 
 
-
-//losujemy energie guardom (TU MOZE TEZ ZROBIMY ZACIAGNIECIE TYCH ENERGII Z PLIKU ZEBY BYLY TAKIE SAME ZA KAZDYM ODPALENIEM)
-    for(int i = 0; i < 10; i++){
-        guard.numer = i;
+    for(int i = 0; i < 10; i++){					//Losujemy energie Plaszczakow, ktore moga zostac straznikami 
+        guard.number = i;
         guard.stamina = rand() % 10 + 1;
         guards.push_back(guard);
     }
 
 
-
-    //  Wczytujemy koordynaty z pliku do struktury pointow
-    for(int i = 0; i < how_many_pts; i++){
+    for(int i = 0; i < how_many_pts; i++){			// Wczytujemy koordynaty z pliku jako punkty na trasach straznikow
         int x, y;
-        odczyt >> x >> y;
+        input >> x >> y;
         point.x = x;
         point.y = y;
         point.brightness = rand() % 100 + 1;
@@ -128,28 +123,30 @@ int main(){
     point.y = first_y;
     point.brightness = first_brightness;
     pts.push_back(point);
-
-    odczyt.close();
+    input.close();
 
     // Przepisujemy jasnosc z vectora do tablicy, bo tak dziala nasz algorytm wyznaczania drogi (MOZE POZNIEJ ZROBIMY ZEBY OD RAZU NA VECTORZE DZIALALO)
     for(int i = 0; i <= how_many_pts; i++){
         hull[i] = pts[i].brightness;
 
     }
-    hull[how_many_pts -1] = hull[0]; // dodajemy sztucznie ostatni point taki sam jak first aby zaczal i konczyl w tym samym miejscu (na potrzeby algorytmu)
+    hull[how_many_pts -1] = hull[0]; // Dodajemy ostatni punkt taki sam jak pierwszy aby zaczal i konczyl w tym samym miejscu
 
     wybierz_najsilniejszych(guards);
     int pts_indexes[100];
+    
     for(int i = 0; i <= how_many_pts; i++){
         pts_indexes[i]= 0;
     }
+    
     for(int i = 0; i < 7; i++){
         cout << "<--------------------------------->\n";
-        cout << "guard numer " << guards[i].numer << ", posiada " << guards[i].stamina << " energii\n";
-        wyznacz_droge(guards[i].stamina ,hull, pts);
-        cout << endl;
+        cout << "Guard number" << guards[i].number << ", has " << guards[i].stamina << " points of stamina.\n";
+        wyznacz_droge(guards[i].stamina, hull, pts);
+        cout << '\n';
     }
 
-    cout << "guards obeszli caly plot, nie znaleziono zadnych zagrozen z innych wymiarow :)\n";
+    cout << "Guards have patrolled the whole border and didn't find any signs of outer-dimensional threats.'\n";
+    
     return 0;
 }

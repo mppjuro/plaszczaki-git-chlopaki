@@ -31,8 +31,8 @@ struct Road  {
 
 struct Porter  {
   int nr;
-  std::string typ;
-  std::vector < int > sympatie;
+  string typ;
+  vector < int > sympatie;
 };
 
 struct Edge  {
@@ -40,10 +40,10 @@ struct Edge  {
   double weight;
 };
 
-using Graph = std::unordered_map < int, std::vector < Edge >> ;
+using Graph = unordered_map < int, vector < Edge >> ;
 
 double distanceToOrigin(const Point & point){
-  return std::sqrt(std::pow(point.x, 2) + std::pow(point.y, 2));
+  return sqrt(pow(point.x, 2) + pow(point.y, 2));
 }
 
 bool comparePoint(const Point & a,
@@ -67,13 +67,13 @@ bool areSegmentsEqual(const Point & a1,
 
 double calculateDistance(const Point & p1,
   const Point & p2){
-  return std::sqrt(std::pow(p2.x - p1.x, 2) + std::pow(p2.y - p1.y, 2));
+  return sqrt(pow(p2.x - p1.x, 2) + pow(p2.y - p1.y, 2));
 }
 
-void computeMinXY(const std::vector < Point > & points, double & minX, double & minY){
+void computeMinXY(const vector < Point > & points, double & minX, double & minY){
   // Initialize minX and minY with maximum possible values
-  minX = std::numeric_limits < double > ::max();
-  minY = std::numeric_limits < double > ::max();
+  minX = numeric_limits < double > ::max();
+  minY = numeric_limits < double > ::max();
 
   // Iterate through all points to find the minimum x and y coordinates
   for (const auto & point: points){
@@ -100,8 +100,8 @@ bool compareByAngle(const Point & p1,
   return angle1 < angle2;
 }
 
-Graph createGraph(const std::vector < Point > & points,
-  const std::vector < Road > & roads){
+Graph createGraph(const vector < Point > & points,
+  const vector < Road > & roads){
   Graph graph;
   for (int i = 0; i < points.size(); i++){
     graph[i] =  {}; // Initialize the adjacency list for each point
@@ -133,7 +133,7 @@ Graph createGraph(const std::vector < Point > & points,
 }
 
 // Function to calculate the intersection of a circle and a line segment
-std::vector < Point > intersectCircleLine(Point circleCenter, double radius, Point lineStart, Point lineEnd){
+vector < Point > intersectCircleLine(Point circleCenter, double radius, Point lineStart, Point lineEnd){
   double cx = circleCenter.x, cy = circleCenter.y;
   double x1 = lineStart.x, y1 = lineStart.y;
   double x2 = lineEnd.x, y2 = lineEnd.y;
@@ -144,7 +144,7 @@ std::vector < Point > intersectCircleLine(Point circleCenter, double radius, Poi
   double C = (x1 - cx) * (x1 - cx) + (y1 - cy) * (y1 - cy) - radius * radius;
 
   double det = B * B - 4 * A * C;
-  std::vector < Point > intersections;
+  vector < Point > intersections;
   if(A <= 0.0000001 || det < 0){
     // No real solutions, find closest point on the line to the circle center
     double t = -B / (2 * A);
@@ -163,8 +163,8 @@ std::vector < Point > intersectCircleLine(Point circleCenter, double radius, Poi
     });
   } else{
     // Two solutions.
-    double t1 = (-B + std::sqrt(det)) / (2 * A);
-    double t2 = (-B - std::sqrt(det)) / (2 * A);
+    double t1 = (-B + sqrt(det)) / (2 * A);
+    double t2 = (-B - sqrt(det)) / (2 * A);
     intersections.push_back( {
       x1 + t1 * dx,
       y1 + t1 * dy
@@ -176,10 +176,10 @@ std::vector < Point > intersectCircleLine(Point circleCenter, double radius, Poi
   }
 
   // Filter points that do not lie on the segment
-  std::vector < Point > onSegment;
+  vector < Point > onSegment;
   for (const auto & pt: intersections){
-    if(std::min(x1, x2) <= pt.x && pt.x <= std::max(x1, x2) &&
-      std::min(y1, y2) <= pt.y && pt.y <= std::max(y1, y2)){
+    if(min(x1, x2) <= pt.x && pt.x <= max(x1, x2) &&
+      min(y1, y2) <= pt.y && pt.y <= max(y1, y2)){
       onSegment.push_back(pt);
     }
   }
@@ -188,7 +188,7 @@ std::vector < Point > intersectCircleLine(Point circleCenter, double radius, Poi
 }
 
 int findIndexInPoints(const Point & point,
-  const std::vector < Point > & points){
+  const vector < Point > & points){
   for (int i = 0; i < points.size(); i++){
     if(points[i].x == point.x && points[i].y == point.y){
       return i;
@@ -197,11 +197,11 @@ int findIndexInPoints(const Point & point,
   return -1; // ZwrĂłÄ‡ -1 jeĹ›li point nie jest znaleziony
 }
 
-std::vector < int > dijkstra(const Graph & graph, int startVertex, int targetVertex){
-  std::priority_queue < std::pair < double, int > , std::vector < std::pair < double, int >> , std::greater < >> pq;
-  std::vector < double > distances(graph.size(), std::numeric_limits < double > ::max());
-  std::vector < int > previous(graph.size(), -1);
-  std::vector < bool > visited(graph.size(), false);
+vector < int > dijkstra(const Graph & graph, int startVertex, int targetVertex){
+  priority_queue < pair < double, int > , vector < pair < double, int >> , greater < >> pq;
+  vector < double > distances(graph.size(), numeric_limits < double > ::max());
+  vector < int > previous(graph.size(), -1);
+  vector < bool > visited(graph.size(), false);
 
   pq.push( {
     0,
@@ -234,11 +234,11 @@ std::vector < int > dijkstra(const Graph & graph, int startVertex, int targetVer
   }
 
   // Reconstruct path
-  std::vector < int > path;
+  vector < int > path;
   for (int at = targetVertex; at != -1; at = previous[at]){
     path.push_back(at);
   }
-  std::reverse(path.begin(), path.end());
+  reverse(path.begin(), path.end());
   if(path.size() == 1 && path[0] != startVertex){
     path.clear(); // no path found
   }
@@ -259,7 +259,7 @@ void drawDashedLine(SDL_Renderer * renderer, int x1, int y1, int x2, int y2,
   int thickness_offset = thickness / 2; // Half thickness to spread the thickness around the line
 
   while(currentLength < totalDistance){
-    double currentSegmentLength = std::min(segmentLength, totalDistance - currentLength);
+    double currentSegmentLength = min(segmentLength, totalDistance - currentLength);
     double endX = x1 + (currentLength + currentSegmentLength) * dx;
     double endY = y1 + (currentLength + currentSegmentLength) * dy;
 
@@ -288,8 +288,8 @@ void drawDashedLine(SDL_Renderer * renderer, int x1, int y1, int x2, int y2,
 void drawThickLine(SDL_Renderer * renderer, int x0, int y0, int x1, int y1, int thickness, SDL_Color color){
   SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
 
-  int dx = std::abs(x1 - x0);
-  int dy = -std::abs(y1 - y0);
+  int dx = abs(x1 - x0);
+  int dy = -abs(y1 - y0);
   int sx = x0 < x1 ? 1 : -1;
   int sy = y0 < y1 ? 1 : -1;
   int err = dx + dy, e2;
@@ -317,10 +317,10 @@ void drawThickLine(SDL_Renderer * renderer, int x0, int y0, int x1, int y1, int 
   }
 }
 
-std::vector < Point > computeConvexHull(std::vector < Point > & points){
+vector < Point > computeConvexHull(vector < Point > & points){
   if(points.size() < 3) return  {};
-  std::sort(points.begin(), points.end(), comparePoint);
-  std::vector < Point > hull;
+  sort(points.begin(), points.end(), comparePoint);
+  vector < Point > hull;
 
   // Lower hull
   for (auto & point: points){
@@ -343,16 +343,16 @@ std::vector < Point > computeConvexHull(std::vector < Point > & points){
   return hull;
 }
 
-std::string trim(const std::string & str){
+string trim(const string & str){
   size_t first = str.find_first_not_of(" \t\n\r");
   size_t last = str.find_last_not_of(" \t\n\r");
-  if(first == std::string::npos || last == std::string::npos){
+  if(first == string::npos || last == string::npos){
     return "";
   }
   return str.substr(first, (last - first + 1));
 }
 
-int findNextIndexOnHull(const std::vector < Point > & hull, int currentIndex){
+int findNextIndexOnHull(const vector < Point > & hull, int currentIndex){
   // Return the next index, wrap around if at the end
   return (currentIndex + 1) % hull.size();
 }
@@ -377,19 +377,19 @@ Point createPointAtDistance(const Point & start,
 }
 
 int main(int argc, char * argv[]){
-  std::map < std::string, int > config;
-  std::ifstream config_file("config.txt");
+  map < string, int > config;
+  ifstream config_file("config.txt");
   if(!config_file.is_open()){
-    std::cerr << "Error: Could not open the configuration file." << '\n';
+    cerr << "Error: Could not open the configuration file." << '\n';
     return 1;
   }
 
-  std::string line;
-  while(std::getline(config_file, line)){
+  string line;
+  while(getline(config_file, line)){
     size_t pos = line.find('=');
-    if(pos != std::string::npos){
-      std::string key = trim(line.substr(0, pos));
-      int value = std::stoi(trim(line.substr(pos + 1)));
+    if(pos != string::npos){
+      string key = trim(line.substr(0, pos));
+      int value = stoi(trim(line.substr(pos + 1)));
       config[key] = value;
     }
   }
@@ -415,19 +415,19 @@ int main(int argc, char * argv[]){
   }; // Kolor dla normalnych odcinkĂłw otoczki
 
   if(SDL_Init(SDL_INIT_VIDEO) != 0){
-    std::cerr << "Error: SDL could not initialize - " << SDL_GetError() << '\n';
+    cerr << "Error: SDL could not initialize - " << SDL_GetError() << '\n';
     return 1;
   }
 
   if(TTF_Init() == -1){
-    std::cerr << "Error: SDL_ttf could not initialize - " << TTF_GetError() << '\n';
+    cerr << "Error: SDL_ttf could not initialize - " << TTF_GetError() << '\n';
     SDL_Quit();
     return 1;
   }
 
   TTF_Font * font = TTF_OpenFont("LiberationSans-Regular.ttf", 12);
   if(!font){
-    std::cerr << "Error: Failed to load font - " << TTF_GetError() << '\n';
+    cerr << "Error: Failed to load font - " << TTF_GetError() << '\n';
     TTF_Quit();
     SDL_Quit();
     return 1;
@@ -436,7 +436,7 @@ int main(int argc, char * argv[]){
   int margin = config["MARGIN"];
   int window_width = config["WINDOW_WIDTH"];
   int window_height = config["WINDOW_HEIGHT"];
-  SDL_Window * window = SDL_CreateWindow("Mapa pts", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, window_width + 2 * margin, window_height + 2 * margin, 0);
+  SDL_Window * window = SDL_CreateWindow("mirrored_letters_map pts", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, window_width + 2 * margin, window_height + 2 * margin, 0);
   if(!window){
     TTF_CloseFont(font);
     TTF_Quit();
@@ -453,16 +453,16 @@ int main(int argc, char * argv[]){
     return 1;
   }
 
-  std::vector < Point > points;
-  std::ifstream points_file("pts.txt");
-  int liczbapointow;
+  vector < Point > points;
+  ifstream points_file("pts.txt");
+  int number_of_points;
   int x, y;
-  if(!(points_file >> liczbapointow)){
-    std::cerr << "Error reading number of points from pts.txt" << '\n';
+  if(!(points_file >> number_of_points)){
+    cerr << "Error reading number of points from pts.txt" << '\n';
     return 1; // or handle error appropriately
   }
 
-  while(liczbapointow--> 0 && points_file >> x >> y){
+  while(number_of_points--> 0 && points_file >> x >> y){
     points.push_back( {
       double(x),
       double(y)
@@ -471,10 +471,10 @@ int main(int argc, char * argv[]){
   points_file.close();
 
   //wczytaj drogi
-  std::vector < Road > roads;
-  std::ifstream roads_file("drogi.txt");
+  vector < Road > roads;
+  ifstream roads_file("drogi.txt");
   if(!roads_file.is_open()){
-    std::cerr << "Error: Could not open roads file." << '\n';
+    cerr << "Error: Could not open roads file." << '\n';
     return 1;
   }
 
@@ -494,7 +494,7 @@ int main(int argc, char * argv[]){
   }
   roads_file.close();
 
-  std::vector < Point > hull = computeConvexHull(points);
+  vector < Point > hull = computeConvexHull(points);
 
   SDL_SetRenderDrawColor(renderer, pointColor.r, pointColor.g, pointColor.b, pointColor.a);
   // Render points and text
@@ -517,7 +517,7 @@ int main(int argc, char * argv[]){
       255,
       255
     }; // White color for the text
-    std::string text = std::to_string(int(point.x)) + ", " + std::to_string(int(point.y));
+    string text = to_string(int(point.x)) + ", " + to_string(int(point.y));
     SDL_Surface * textSurface = TTF_RenderText_Solid(font, text.c_str(), textColor);
     SDL_Texture * textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
     SDL_Rect textRect =  {
@@ -583,25 +583,25 @@ int main(int argc, char * argv[]){
     }
   }
 
-  std::ifstream file("tragarze.txt");
+  ifstream file("tragarze.txt");
   if(!file.is_open()){
-    std::cerr << "Error: Could not open the porters file." << '\n';
+    cerr << "Error: Could not open the porters file." << '\n';
     return 1;
   }
 
   int liczbaTragarzy;
   if(!(file >> liczbaTragarzy)){
-    std::cerr << "Error: Failed to read the number of porters." << '\n';
+    cerr << "Error: Failed to read the number of porters." << '\n';
     file.close();
     return 1;
   }
 
-  std::vector < Porter > porters;
-  std::getline(file, line); // Clear the newline character
+  vector < Porter > porters;
+  getline(file, line); // Clear the newline character
 
   for (int i = 0; i < liczbaTragarzy; i++){
-    std::getline(file, line);
-    std::stringstream ss(line);
+    getline(file, line);
+    stringstream ss(line);
     Porter porter;
     ss >> porter.nr >> porter.typ;
 
@@ -617,8 +617,8 @@ int main(int argc, char * argv[]){
   file.close();
 
   // ZnajdĹş pary tragarzy o rĂłĹĽnych typach i obustronnej sympatii
-  std::vector < std::pair < int, int >> paryTragarzy;
-  std::vector < bool > tragarzDostepny(porters.size(), true);
+  vector < pair < int, int >> paryTragarzy;
+  vector < bool > tragarzDostepny(porters.size(), true);
 
   for (size_t i = 0; i < porters.size(); i++){
     if(!tragarzDostepny[i]){
@@ -659,9 +659,9 @@ int main(int argc, char * argv[]){
   }
 
   // Zapisz pary tragarzy do pliku
-  std::ofstream outFile("pary_tragarzy.txt");
+  ofstream outFile("pary_tragarzy.txt");
   if(!outFile.is_open()){
-    std::cerr << "Error: Could not open the output file." << '\n';
+    cerr << "Error: Could not open the output file." << '\n';
     return 1;
   }
 
@@ -676,7 +676,7 @@ int main(int argc, char * argv[]){
   //zrobienie fabryki
   // Find the point closest to the origin
   Point closestPoint;
-  double minDistance = std::numeric_limits < double > ::max();
+  double minDistance = numeric_limits < double > ::max();
   for (const auto & point: points){
     double distance = distanceToOrigin(point);
     if(distance < minDistance){
@@ -699,9 +699,9 @@ int main(int argc, char * argv[]){
   SDL_RenderFillRect(renderer, & rect);
   Point selectedPoint;
   if(!hull.empty()){
-    std::random_device rd; // Obtain a random number from hardware
-    std::mt19937 eng(rd()); // Seed the generator
-    std::uniform_int_distribution < > distr(0, hull.size() - 1); // Define the range
+    random_device rd; // Obtain a random number from hardware
+    mt19937 eng(rd()); // Seed the generator
+    uniform_int_distribution < > distr(0, hull.size() - 1); // Define the range
 
     // Randomly select a point from the convex hull
     int randomIndex = distr(eng);
@@ -711,16 +711,16 @@ int main(int argc, char * argv[]){
   Graph graph = createGraph(points, roads);
   // Find indices for closestPoint and selectedPoint
   int closestIndex = 0, selectedIndex = 0;
-  std::vector < int > path;
+  vector < int > path;
   // Optionally draw the path or display the distance
   double totalDistance = 0;
 
   // Write the total distance to the file "koszt.txt"
-  std::ofstream kosztFile("koszt.txt");
+  ofstream kosztFile("koszt.txt");
   if(kosztFile.is_open()){
     computeMinXY(points, minX, minY);
     // Sort the hull points by angle with respect to the x-axis in clockwise order
-    //std::sort(hull.begin(), hull.end(), compareByAngle);
+    //sort(hull.begin(), hull.end(), compareByAngle);
     selectedIndex = 0;
     double radius = 1.0; // Radius for the calculation of the next point
     Point startowy = hull[0]; // Starting point
@@ -783,14 +783,14 @@ int main(int argc, char * argv[]){
       totalDistance = 0;
     } while(currentPoint.x != startowy.x || currentPoint.y != startowy.y);
   } else{
-    std::cerr << "Unable to open file 'koszt.txt' for writing." << '\n';
+    cerr << "Unable to open file 'koszt.txt' for writing." << '\n';
   }
   kosztFile.close();
 
-  std::vector < double > distances;
-  std::ifstream inFile("koszt.txt");
+  vector < double > distances;
+  ifstream inFile("koszt.txt");
   if(!inFile.is_open()){
-    std::cerr << "Nie moĹĽna otworzyÄ‡ pliku koszt.txt do odczytu." << '\n';
+    cerr << "Nie moĹĽna otworzyÄ‡ pliku koszt.txt do odczytu." << '\n';
     return 654;
   }
 
@@ -808,9 +808,9 @@ int main(int argc, char * argv[]){
   inFile.close();
 
   // Teraz otwĂłrz ten sam plik do dopisywania (append mode)
-  std::ofstream outResultFile("result.txt", ios::out);
+  ofstream outResultFile("result.txt", ios::out);
   if(!outResultFile.is_open()){
-    std::cerr << "Nie moĹĽna otworzyÄ‡ pliku koszt.txt do zapisu." << '\n';
+    cerr << "Nie moĹĽna otworzyÄ‡ pliku koszt.txt do zapisu." << '\n';
     return 561;
   }
 
@@ -818,7 +818,7 @@ int main(int argc, char * argv[]){
   outResultFile << "Zeby dostarczyc " << count << " odcinkow (lub ich fragmentow) do otoczenia Strony tragarze przebyli odleglosc: " << (2 * totalSum) << " co jest minimalnym kosztem wykonania tej pracy" << '\n';
 
   int numberOfPorters = paryTragarzy.size();
-  std::vector < double > porterSums(numberOfPorters, 0.0);
+  vector < double > porterSums(numberOfPorters, 0.0);
 
   // Przydzielanie zadaĹ„
   for (int i = 0; i < distances.size(); i++){
@@ -827,7 +827,7 @@ int main(int argc, char * argv[]){
   }
 
   // Znajdowanie maksymalnej sumy odlegĹ‚oĹ›ci
-  double maks = * std::max_element(porterSums.begin(), porterSums.end());
+  double maks = * max_element(porterSums.begin(), porterSums.end());
 
   // Obliczanie i wypisywanie czasu potrzebnego do wykonania zadaĹ„
   outResultFile << "Zajelo to " << (maks / config["PORTER_SPEED"]) << " czasu" << '\n';

@@ -20,6 +20,7 @@
 
 using namespace std;
 int iloscZamian = 0;
+/*
 // HUFFMANN START
 
 class Node {
@@ -126,35 +127,35 @@ void decodeHuffmanToFile(const string& inputFilename, const string& outputFilena
 }
 
 // HUFFMANN END
-
-std::string trim(const std::string& str){
+*/
+string trim(const string& str){
     size_t first = str.find_first_not_of(" \t\n\r");
     size_t last = str.find_last_not_of(" \t\n\r");
-    if(first == std::string::npos || last == std::string::npos){
+    if(first == string::npos || last == string::npos){
         return "";
     }
     return str.substr(first, (last - first + 1));
 }
 
-void printFileContent(const std::string& filename){
-    std::ifstream file(filename, std::ios::binary);
+void printFileContent(const string& filename){
+    ifstream file(filename, ios::binary);
     if(!file.is_open()){
-        std::cerr << "Nie można otworzyc pliku do odczytu: " << filename << '\n';
+        cerr << "Nie można otworzyc pliku do odczytu: " << filename << '\n';
         return;
     }
 
-    std::cout << "Zawartosc pliku " << filename << ":" << '\n';
+    cout << "Zawartosc pliku " << filename << ":" << '\n';
     
     // Wyświetlanie firstch 8 bajtów w formacie binarnym
     char c;
     int count = 0;
-    std::cout << "Pierwsze 8 bajtow w formacie binarnym: ";
+    cout << "Pierwsze 8 bajtow w formacie binarnym: ";
     while(file.get(c)){
-        std::cout << std::bitset<8>(static_cast<unsigned char>(c)) << " ";
+        cout << bitset<8>(static_cast<unsigned char>(c)) << " ";
         count++;
     }
-    std::cout << '\n';
-    std::cout << '\n' << "Koniec pliku." << '\n';
+    cout << '\n';
+    cout << '\n' << "Koniec pliku." << '\n';
     file.close();
 }
 
@@ -173,53 +174,53 @@ void saveDictionaryAndTransformedText(const string& filename, const vector<strin
 }
 
 // Funkcja usuwająca znaki interpunkcyjne z ciągu znaków
-std::string usunInterpunkcje(const std::string& tekst){
-    std::string wynik;
-    std::remove_copy_if(tekst.begin(), tekst.end(), std::back_inserter(wynik), [](char c){
-        return std::ispunct(static_cast<unsigned char>(c));
+string rmv_interpunction(const string& tekst){
+    string wynik;
+    remove_copy_if(tekst.begin(), tekst.end(), back_inserter(wynik), [](char c){
+        return ispunct(static_cast<unsigned char>(c));
     });
     return wynik;
 }
 
-// Funkcja tworząca mapę możliwych odwróceń liter i ich odbić lustrzanych
-std::unordered_map<char, std::set<char>> utworzMapeOdwracen(){
-    std::unordered_map<char, std::set<char>> mapa;
-    mapa['a'] = {'a', 'e'};
-    mapa['b'] = {'b', 'q', 'd', 'p'};
-    mapa['c'] = {'c', 'u'};
-    mapa['d'] = {'d', 'b', 'p', 'q'};
-    mapa['e'] = {'e', 'a'};
-    mapa['h'] = {'h', 'y'};
-    mapa['m'] = {'m', 'w'};
-    mapa['n'] = {'n', 'u'};
-    mapa['p'] = {'p', 'b', 'q', 'd'};
-    mapa['q'] = {'q', 'b', 'p', 'd'};
-    mapa['u'] = {'u', 'n', 'c'};
-    mapa['w'] = {'w', 'm'};
-    mapa['y'] = {'y', 'h'};
-    return mapa;
+//Funkcja tworząca mapę możliwych odwróceń liter i ich odbić lustrzanych
+unordered_map<char, set<char>> mirrored_letters(){
+    unordered_map<char, set<char>> mirrored_letters_map;
+    mirrored_letters_map['a'] = {'a', 'e'};
+    mirrored_letters_map['b'] = {'b', 'q', 'd', 'p'};
+    mirrored_letters_map['c'] = {'c', 'u'};
+    mirrored_letters_map['d'] = {'d', 'b', 'p', 'q'};
+    mirrored_letters_map['e'] = {'e', 'a'};
+    mirrored_letters_map['h'] = {'h', 'y'};
+    mirrored_letters_map['m'] = {'m', 'w'};
+    mirrored_letters_map['n'] = {'n', 'u'};
+    mirrored_letters_map['p'] = {'p', 'b', 'q', 'd'};
+    mirrored_letters_map['q'] = {'q', 'b', 'p', 'd'};
+    mirrored_letters_map['u'] = {'u', 'n', 'c'};
+    mirrored_letters_map['w'] = {'w', 'm'};
+    mirrored_letters_map['y'] = {'y', 'h'};
+    return mirrored_letters_map;
 }
 
 // Funkcja sprawdzająca, czy odwrócenie liter w słowie daje słowo ze słownika
-std::string znajdzSlowoOdwracane(const std::string& slowo, const std::unordered_map<char, std::set<char>>& mapa, const std::set<std::string>& slownik){
-    std::set<std::string> przetworzoneSlowa;
+string znajdzSlowoOdwracane(const string& slowo, const unordered_map<char, set<char>>& mirrored_letters_map, const set<string>& slownik){
+    set<string> przetworzoneSlowa;
     przetworzoneSlowa.insert(slowo);
-    std::queue<std::string> kolejka;
+    queue<string> kolejka;
     kolejka.push(slowo);
 
     while(!kolejka.empty()){
-        std::string obecneSlowo = kolejka.front();
+        string obecneSlowo = kolejka.front();
         kolejka.pop();
 
         for (size_t i = 0; i < obecneSlowo.size(); i++){
             char orig = obecneSlowo[i];
-            if(mapa.find(orig) != mapa.end()){
-                for (char zamiennik : mapa.at(orig)){
-                    std::string noweSlowo = obecneSlowo;
+            if(mirrored_letters_map.find(orig) != mirrored_letters_map.end()){
+                for (char zamiennik : mirrored_letters_map.at(orig)){
+                    string noweSlowo = obecneSlowo;
                     noweSlowo[i] = zamiennik;
 
                     if(slownik.find(noweSlowo) != slownik.end() && noweSlowo.size() == slowo.size()){
-                        std::cout << "Zamiana \"" << slowo << "\" na \"" << noweSlowo << "\"" << '\n';
+                        cout << "Zamiana \"" << slowo << "\" na \"" << noweSlowo << "\"" << '\n';
 						iloscZamian++;
                         return noweSlowo;
                     }
@@ -241,21 +242,20 @@ int calculateBitsNeeded(int num){
 
 int main(){
 	ios::sync_with_stdio(false);
-	// Inicjalizacja generatora liczb losowych
-    srand(static_cast<unsigned>(time(0)));
-	std::map<std::string, int> config;
-    std::ifstream config_file("config.txt");
+    srand(time(NULL));
+	map<string, int> config;
+    ifstream config_file("config.txt");
     if(!config_file.is_open()){
-        std::cerr << "Nie można otworzyć pliku konfiguracyjnego." << '\n';
+        cerr << "Couldn't open the config file!\n";
         return 1;
     }
 
-    std::string line;
-    while(std::getline(config_file, line)){
+    string line;
+    while(getline(config_file, line)){
         size_t pos = line.find("=");
-        if(pos != std::string::npos){
-            std::string key = trim(line.substr(0, pos));
-            int value = std::stoi(trim(line.substr(pos + 1)));
+        if(pos != string::npos){
+            string key = trim(line.substr(0, pos));
+            int value = stoi(trim(line.substr(pos + 1)));
             config[key] = value;
         }
     }
@@ -266,30 +266,30 @@ int main(){
 	const int k = config["DICT_SIZE"]; //max ilosc w slowniku
 	
     // Wczytywanie słownika
-    std::set<std::string> slownik;
-    std::ifstream plikSlownik("slownik.txt");
-    std::string slowo;
+    set<string> slownik;
+    ifstream plikSlownik("slownik.txt");
+    string slowo;
     while(plikSlownik >> slowo){
         slownik.insert(slowo);
     }
     plikSlownik.close();
 
     // Tworzenie mapy odwróceń liter
-    auto mapaOdwracen = utworzMapeOdwracen();
+    auto mirrored_letters_mapOdwracen = mirrored_letters();
 
     // Wczytywanie tekstu do przetworzenia
-    std::ifstream plikTekst("tekstzpoli.txt");
-    std::ofstream plikWynik("tekstbezpoli.txt");
-    std::string linia;
-    while(std::getline(plikTekst, linia)){
-        std::stringstream ss(linia);
-        std::string wyraz;
+    ifstream plikTekst("tekstzpoli.txt");
+    ofstream plikWynik("tekstbezpoli.txt");
+    string linia;
+    while(getline(plikTekst, linia)){
+        stringstream ss(linia);
+        string wyraz;
         while(ss >> wyraz){
-            std::string slowoBezInterpunkcji = usunInterpunkcje(wyraz);
-            std::string wynikoweSlowo = slowoBezInterpunkcji;
+            string slowoBezInterpunkcji = rmv_interpunction(wyraz);
+            string wynikoweSlowo = slowoBezInterpunkcji;
 
             if(slownik.find(slowoBezInterpunkcji) == slownik.end()){
-                std::string slowoPoOdwracaniu = znajdzSlowoOdwracane(slowoBezInterpunkcji, mapaOdwracen, slownik);
+                string slowoPoOdwracaniu = znajdzSlowoOdwracane(slowoBezInterpunkcji, mirrored_letters_mapOdwracen, slownik);
                 if(!slowoPoOdwracaniu.empty() && slowoPoOdwracaniu.size() == slowoBezInterpunkcji.size()){
                     wynikoweSlowo = slowoPoOdwracaniu;
                 }
@@ -298,7 +298,7 @@ int main(){
             // Odtwarzanie interpunkcji w wynikowym słowie
             size_t j = 0;
             for (size_t i = 0; i < wyraz.size(); i++){
-                if(std::isalpha(wyraz[i])){
+                if(isalpha(wyraz[i])){
                     wyraz[i] = wynikoweSlowo[j++];
                 }
             }
@@ -309,7 +309,7 @@ int main(){
     plikTekst.close();
     plikWynik.close();
 
-    std::cout << "Przetwarzanie zakonczone, ilosc zamian " << iloscZamian << ". Wynik zapisany w pliku tekstbezpoli.txt." << '\n';
+    cout << "Przetwarzanie zakonczone, ilosc zamian " << iloscZamian << ". Wynik zapisany w pliku tekstbezpoli.txt." << '\n';
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
     ifstream inFile("tekstbezpoli.txt");
@@ -402,7 +402,7 @@ int main(){
     }
 
     saveDictionaryAndTransformedText("out.txt", finalDictionary, transformedText);
-
+/*
 //huffmann START
     // Kompresja Huffmana
     unordered_map<char, string> huffmanCode;
@@ -420,9 +420,9 @@ int main(){
     huffmanFile.close();
 
 //HUFFMANN END
-
+*/
     // Etap 1: Kodowanie tekstu do formatu binarnego
-    std::unordered_map<char, std::string> encoding = {
+    unordered_map<char, string> encoding = {
         {'a', "00000"}, {'b', "00001"}, {'c', "00010"}, {'d', "00011"},
         {'e', "00100"}, {'f', "00101"}, {'g', "00110"}, {'h', "00111"},
         {'i', "01000"}, {'j', "01001"}, {'k', "01010"}, {'l', "01011"},
@@ -433,8 +433,8 @@ int main(){
         {',', "11100"}, {'.', "11101"}, {' ', "11110"}
     };
     
-    std::ifstream inputFile("tekstbezpoli.txt", std::ios::in);
-    std::ofstream outputFile("kodowany.txt", std::ios::out);
+    ifstream inputFile("tekstbezpoli.txt", ios::in);
+    ofstream outputFile("kodowany.txt", ios::out);
 
     if(!inputFile.is_open() || !outputFile.is_open()){
         cerr << "Error opening file for input or output." << '\n';
@@ -458,8 +458,8 @@ int main(){
     inputFile.close();
     outputFile.close();
     
-    std::ifstream inputFileout("out.txt", std::ios::in);
-    std::ofstream outputFilekodowanyout("kodowanyout.txt", std::ios::out);
+    ifstream inputFileout("out.txt", ios::in);
+    ofstream outputFilekodowanyout("kodowanyout.txt", ios::out);
 
     if(!inputFileout.is_open() || !outputFilekodowanyout.is_open()){
         cerr << "Error opening file for input or output." << '\n';
@@ -469,7 +469,7 @@ int main(){
     getline(inputFileout, transformedLine);
     int num = stoi(transformedLine.substr(0, 10));
     int bitsNeeded = calculateBitsNeeded(num);
-    string binary = std::bitset<10>(num).to_string();
+    string binary = bitset<10>(num).to_string();
     outputFilekodowanyout << binary;
     while(getline(inputFileout, transformedLine)){
 		transformedLine += "@";
@@ -518,7 +518,7 @@ int main(){
                 byteString.append(8 - byteString.length(), '1'); // Dopełnij zerami, jeśli nie ma pełnego bajtu
             }
             // Konwersja ciągu binarnego na bajt
-            char byte = static_cast<char>(std::bitset<8>(byteString).to_ulong());
+            char byte = static_cast<char>(bitset<8>(byteString).to_ulong());
             outputKodowany.write(&byte, sizeof(byte));
         }
     }
@@ -546,27 +546,32 @@ int main(){
                 byteString.append(8 - byteString.length(), '1'); // Dopełnij zerami, jeśli nie ma pełnego bajtu
             }
             // Konwersja ciągu binarnego na bajt
-            char byte = static_cast<char>(std::bitset<8>(byteString).to_ulong());
+            char byte = static_cast<char>(bitset<8>(byteString).to_ulong());
             outputKodowanyKomp.write(&byte, sizeof(byte));
         }
     }
 
     inputKodowanyKomp.close();
     outputKodowanyKomp.close();
-
+/*
 	//HUFFFMAN DECODE
     // Dekompresja i zapis do pliku text3.txt
     decodeHuffmanToFile("huffman.bin", "text3.txt", root);
 	//HUFFAMN DECODE END
-	
+*/
     cout << "Conversion completed successfully." << '\n';
     
     // Otwieranie plików do odczytu, aby sprawdzić ich rozmiar
     ifstream inputKodowanyTest("output.bin", ios::binary | ios::ate);
     ifstream inputKodowanyKompTest("outputkomp.bin", ios::binary | ios::ate);
-    ifstream inputKodowanyKompHuffmanTest("huffman.bin", ios::binary | ios::ate);
+    /*
+    
+    
+	ifstream inputKodowanyKompHuffmanTest("huffman.bin", ios::binary | ios::ate);
 
-    if(!inputKodowanyTest.is_open() || !inputKodowanyKompTest.is_open() || !inputKodowanyKompHuffmanTest.is_open()){
+
+	*/
+    if(!inputKodowanyTest.is_open() || !inputKodowanyKompTest.is_open() /*|| !inputKodowanyKompHuffmanTest.is_open()*/){
         cerr << "Error opening binary files to read size." << '\n';
         return 1;
     }
@@ -575,11 +580,15 @@ int main(){
 	
 	int a = inputKodowanyTest.tellg();
 	int b = inputKodowanyKompTest.tellg();
+	/*
+	
 	int c = inputKodowanyKompHuffmanTest.tellg();
-    // Pobieranie i wyświetlanie rozmiaru plików
+    
+	*/
+	// Pobieranie i wyświetlanie rozmiaru plików
     cout << "Rozmiar pliku output.bin: " << a << " bajtow" << '\n';
     cout << "Rozmiar pliku outputkomp.bin (kompresja to zmodyfikowany LZ78): " << b << " bajtow, czyli jest mniejszy od pierwszego pliku o " << 1.0*(a-b)/a * 100 << "%" << '\n';
-    cout << "Rozmiar pliku huffman.bin (kompresja to algorytm Huffmana): " << c << " bajtow, czyli jest mniejszy od pierwszego pliku o " << 1.0*(a-c)/a * 100 << "%" << '\n';
+    //cout << "Rozmiar pliku huffman.bin (kompresja to algorytm Huffmana): " << c << " bajtow, czyli jest mniejszy od pierwszego pliku o " << 1.0*(a-c)/a * 100 << "%" << '\n';
 
     inputKodowany.close();
     inputKodowanyKomp.close();
@@ -606,7 +615,7 @@ binaryInput.close();
 textOutput.close();
 
 
-    // Mapa dekodowania
+    // mirrored_letters_map dekodowania
     unordered_map<string, char> decoding = {
         {"00000", 'a'}, {"00001", 'b'}, {"00010", 'c'}, {"00011", 'd'},
         {"00100", 'e'}, {"00101", 'f'}, {"00110", 'g'}, {"00111", 'h'},
@@ -685,7 +694,6 @@ textOutput.close();
     }
 
     output.close();
-	//////////////////////////////////////////////////////////////
 	ifstream inFileOut2("out2.txt");
     if(!inFileOut2.is_open()){
         cerr << "Nie można otworzyć pliku 'out2.txt'." << '\n';
