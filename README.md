@@ -5,7 +5,7 @@
 ## Instrukcja obsługi
 1. Klonujesz repo jak nie masz (ten branch):
 ```console
-git clone https://github.com/mppjuro/plaszczaki-git-chlopaki/tree/testing
+git clone -b testing https://github.com/mppjuro/plaszczaki-git-chlopaki.git
 cd plaszczaki-git-chlopaki
 ```
 2. Tworzysz katalog 'build' i do niego wchodzisz
