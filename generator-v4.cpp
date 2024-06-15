@@ -112,8 +112,11 @@ std::string zamienLitery(const std::string& tekst, const std::unordered_map<char
         }
     }
 
+    std::random_device rd;
+    std::mt19937 g(rd());
+
     // Losowe tasowanie indeksów
-    std::random_shuffle(indeksy.begin(), indeksy.end());
+    std::shuffle(indeksy.begin(), indeksy.end(), g);
 
     // Obliczanie liczby liter do zamiany
     size_t liczbaDoZamiany = static_cast<size_t>(procent * indeksy.size());
