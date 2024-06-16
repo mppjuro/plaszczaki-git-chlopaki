@@ -1,6 +1,6 @@
 # plaszczaki-git-chlopaki
 
-DEADLINE 15 czerwca, do tej daty należy zrobić wszystko łącznie z dokumentacją, prezentacją z opisem jak rozumiemy poszczególne problemy oraz screenami z testów w prezentacji, przetestować przypadki brzegowe, np. wszystkie płaszczaki z rękami z przodu i żadnego z rękami z tyłu, odcinki otoczki wypukłej idealnie pionowe lub poziome
+Trzeba zrobić wszystko łącznie z dokumentacją, prezentacją z opisem jak rozumiemy poszczególne problemy oraz screenami z testów w prezentacji, przetestować przypadki brzegowe, np. wszystkie płaszczaki z rękami z przodu i żadnego z rękami z tyłu, odcinki otoczki wypukłej idealnie pionowe lub poziome
 
 generator danych do problemów 1 i 2 zrobiony - Miłosz
 
