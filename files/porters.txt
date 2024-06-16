@@ -1,0 +1,14 @@
+13
+1 przedni 2 5 9 10 11 12 13 ;
+2 przedni 1 6 8 11 12 ;
+3 tylny 4 5 7 ;
+4 tylny 3 5 6 7 8 9 10 11 13 ;
+5 tylny 1 3 4 6 9 10 12 13 ;
+6 tylny 2 4 5 8 11 ;
+7 przedni 3 4 8 10 ;
+8 tylny 2 4 6 7 10 11 12 13 ;
+9 przedni 1 4 5 10 11 ;
+10 tylny 1 4 5 7 8 9 11 13 ;
+11 tylny 1 2 4 6 8 9 10 ;
+12 przedni 1 2 5 8 13 ;
+13 tylny 1 4 5 8 10 12 ;

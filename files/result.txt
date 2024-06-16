@@ -1,0 +1,2 @@
+In order to deliver 716 parts (or fragments) the porters have travelled: 552748 units which is the minimal cost of such labor.
+The whole process took 1385.64
