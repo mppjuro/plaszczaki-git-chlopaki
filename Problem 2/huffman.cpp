@@ -75,7 +75,7 @@ void decodeHuffmanToFile(const string &inputFilename, const string &outputFilena
     ifstream file(inputFilename, ios::binary);
     ofstream outputFile(outputFilename);
     if(!file.is_open() || !outputFile.is_open()){
-        cerr << "Nie można otworzyć pliku do odczytu lub zapisu.\n";
+        cerr << "Unable to open.\n";
         return;
     }
 
