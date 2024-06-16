@@ -1,2 +1,0 @@
-Zeby dostarczyc 688 odcinkow (lub ich fragmentow) do otoczenia Strony tragarze przebyli odleglosc: 619222 co jest minimalnym kosztem wykonania tej pracy
-Zajelo to 717.345 czasu
