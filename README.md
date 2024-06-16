@@ -3,25 +3,25 @@
 - CMake min. wersja 3.10
 - Kompilator C++ obsługujący C++17
 ## Instrukcja obsługi
-1. Klonujesz repo jak nie masz (ten branch):
+1. Klonowanie repozytorium (ten branch):
 ```console
 git clone -b linux_final https://github.com/mppjuro/plaszczaki-git-chlopaki.git
 cd plaszczaki-git-chlopaki
 ```
-2. Tworzysz katalog 'build' i do niego wchodzisz
+2. Utworzenie katalogu 'build'
 ```console
 mkdir build
 cd build
 ```
-3. Odpalasz CMake i kompilujesz
+3. Uruchomienie CMake i kompilacja
 ```console
 cmake ..
 cmake --build .
 ```
-4. Aby odpalać program musisz wejść katalog wyżej żeby relatywne ścieżki dobrze działały (odpalasz z głównego katalogu)
+4. Uruchomienie programu z głównego katalogu
 ```console
 cd ..
-build/plaszczaki (ewentualnie plaszczaki.exe na windowsie)
+./plaszczaki (ewentualnie plaszczaki.exe na windowsie)
 ```
 Możliwa też jest ręczna kompilacja:
 ```console
