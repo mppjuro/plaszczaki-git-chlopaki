@@ -1,6 +1,0 @@
-5
-1 tylny ;
-2 przedni ;
-3 przedni 4 5 ;
-4 przedni 3 5 ;
-5 tylny 3 4 ;
