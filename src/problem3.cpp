@@ -1,4 +1,8 @@
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <fstream>
+#include <iostream>
+#include <vector>
+
 #define infile "data/prob1/hull.txt"
 
 using namespace std;
