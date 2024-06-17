@@ -328,7 +328,7 @@ int problem1() {
     outFile << pairs_of_porters.size() << '\n';  // Zapisz liczbe par tragarzy w pierwszej linii
 
     for (const auto& para : pairs_of_porters) {
-        outFile << para.first << " " << para.second << '\n';  // Zapisz numery portery w parze
+        outFile << para.first << " " << para.second << '\n';  // Zapisz numery tragarzy w parze
     }
 
     outFile.close();
