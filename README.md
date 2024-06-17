@@ -19,3 +19,7 @@ DO ZROBIENIA:
 - wypełnić ankietę na moodle 1 dzień PRZED prezentacją, czyli do 18 czerwca - KAŻDY
 
 Dopiszcie pod odpowiednimi punktami co kto będzie robić
+
+####### LYNK do dokumentacji i prezentacji
+Prezentacja - https://docs.google.com/presentation/d/1RXIEMQHOlyjC4npIRpCnFC5_wmmUdSJe-LmSGSc4BNE/edit?usp=sharing
+Dokumentacja - https://docs.google.com/document/d/1aPXrf_kFPLS518Fd8YSvMqP6n2lRFKKy69QRurztfRM/edit?usp=sharing
