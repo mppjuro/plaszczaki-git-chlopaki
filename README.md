@@ -3,9 +3,9 @@
 - CMake min. wersja 3.10
 - Kompilator C++ obsługujący C++17
 ## Instrukcja obsługi
-1. Klonowanie repozytorium (ten branch):
+1. Klonowanie repozytorium:
 ```console
-git clone -b linux_final https://github.com/mppjuro/plaszczaki-git-chlopaki.git
+git clone https://github.com/mppjuro/plaszczaki-git-chlopaki.git
 cd plaszczaki-git-chlopaki
 ```
 2. Utworzenie katalogu 'build'
