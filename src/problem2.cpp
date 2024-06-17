@@ -70,7 +70,7 @@ void printFileContent(const string& filename) {
 
     cout << "Zawartosc pliku " << filename << ":" << '\n';
 
-    // Wyświetlanie firstch 8 bajtów w formacie binarnym
+    // Wyświetlanie pierwszych 8 bajtów w formacie binarnym
     char c;
     int count = 0;
     cout << "Pierwsze 8 bajtow w formacie binarnym: ";
@@ -488,8 +488,8 @@ int problem2() {
     int c = inputKodowanyKompHuffmanTest.tellg();
     // Pobieranie i wyświetlanie sizeu plików
     cout << "Size of output.bin: " << a << " bytes.\n";
-    cout << "Size of outputkomp.bin (LZ78): " << b << " bytes, making it lighter from the original by " << 1.0 * (a - b) / a * 100 << "%" << '\n';
-    cout << "Size of huffman.bin (Huffman): " << c << " bytes, making it lighter from the original by " << 1.0 * (a - c) / a * 100 << "%" << '\n';
+    cout << "Size of outputkomp.bin (LZ78): " << b << " bytes, making it smaller than the original by " << 1.0 * (a - b) / a * 100 << "%" << '\n';
+    cout << "Size of huffman.bin (Huffman): " << c << " bytes, making it smaller than the original by " << 1.0 * (a - c) / a * 100 << "%" << '\n';
 
     inputKodowany.close();
     inputKodowanyKomp.close();
