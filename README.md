@@ -3,6 +3,7 @@
 - CMake min. wersja 3.10
 - Kompilator C++ obsługujący C++17
 ## Instrukcja obsługi
+(polecam użyć skryptu build.sh)
 1. Klonowanie repozytorium:
 ```console
 git clone https://github.com/mppjuro/plaszczaki-git-chlopaki.git
