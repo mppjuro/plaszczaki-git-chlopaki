@@ -4,14 +4,10 @@
 #include <SDL2/SDL_ttf.h>
 
 #include <algorithm>
-#include <cctype>
-#include <cmath>
 #include <fstream>
-#include <functional>
 #include <iostream>
 #include <limits>
 #include <map>
-#include <queue>
 #include <random>
 #include <sstream>
 #include <string>
@@ -199,7 +195,7 @@ int problem1() {
             render_y - 10,
             textSurface->w,
             textSurface->h};
-        SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+        SDL_RenderCopy(renderer, textTexture, nullptr, &textRect);
         SDL_FreeSurface(textSurface);
         SDL_DestroyTexture(textTexture);
     }

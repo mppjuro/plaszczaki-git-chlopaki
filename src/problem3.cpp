@@ -56,7 +56,7 @@ void prepare_path(int size, int arr[], vector<Pts> &pts, int stamina) {  // Wyzn
         if (!loop_completed && i + furthest_move < size) {
             number_of_stops++;
             curr = arr[i + furthest_move];
-            stops.push_back({curr, i + furthest_move});
+            stops.emplace_back(curr, i + furthest_move);
         }
         i += furthest_move;
         have_to_rest = 1;
@@ -77,12 +77,12 @@ void prepare_path(int size, int arr[], vector<Pts> &pts, int stamina) {  // Wyzn
 
 int problem3() {
     ios::sync_with_stdio(false);
-    srand(time(NULL));
+    srand(time(nullptr));
 
     vector<Flatlanders> guards;
     vector<Pts> pts;
 
-    Flatlanders guard;
+    Flatlanders guard{};
     Pts point;
 
     int how_many_pts;
@@ -134,7 +134,7 @@ int problem3() {
     for (int i = 0; i < how_many_pts; i++) {
         pts_indexes[i] = 0;
     }
-
+    free(pts_indexes);
     hire_the_guards(guards);  // Przystepujemy do wyboru straznikow, ktorzy maja najwiecej energii
     for (int i = 0; i < 7; i++) {
         cout << "<--------------------------------->\n";

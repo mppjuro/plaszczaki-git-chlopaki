@@ -6,7 +6,6 @@
 #include <cmath>
 #include <ctime>
 #include <fstream>
-#include <functional>
 #include <iostream>
 #include <iterator>
 #include <map>
@@ -168,7 +167,7 @@ int calculateBitsNeeded(int num) {
 
 int problem2() {
     ios::sync_with_stdio(false);
-    srand(time(NULL));
+    srand(time(nullptr));
     map<string, int> config;
     ifstream config_file(cfg);
     if (!config_file.is_open()) {

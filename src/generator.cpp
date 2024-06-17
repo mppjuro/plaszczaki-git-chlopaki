@@ -30,7 +30,7 @@ using namespace std;
 class UnionFind {
    public:
     vector<int> parent;
-    UnionFind(int size) : parent(size) {
+    explicit UnionFind(int size) : parent(size) {
         iota(parent.begin(), parent.end(), 0);
     }
     int find(int x) {
@@ -146,7 +146,7 @@ int generator() {
     }
     config_file.close();
 
-    srand(time(NULL));
+    srand(time(nullptr));
 
     vector<pair<int, int>> points;
     ofstream points_file(out_pts);
