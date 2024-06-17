@@ -8,14 +8,14 @@
 int main(int argc, char **argv) {
     char selection = -1;
 
-    std::cout << "Witaj w swiecie plaszczakow!" << std::endl;
+    std::cout << "Welcome to the world of flatlanders!" << std::endl;
     do {
-        std::cout << "Co chcesz zrobic?" << std::endl;
-        std::cout << "0. Wygeneruj przykładowe dane" << std::endl;
-        std::cout << "1. Uruchom problem 1" << std::endl;
-        std::cout << "2. Uruchom problem 2" << std::endl;
-        std::cout << "3. Uruchom problem 3" << std::endl;
-        std::cout << "4. Zakoncz program" << std::endl;
+        std::cout << "What will you do today?" << std::endl;
+        std::cout << "0. Generate random data" << std::endl;
+        std::cout << "1. Solve problem 1" << std::endl;
+        std::cout << "2. Solve problem 2" << std::endl;
+        std::cout << "3. Solve problem 3" << std::endl;
+        std::cout << "4. Exit program" << std::endl;
 
         std::cin >> selection;
 

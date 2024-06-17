@@ -1,5 +1,3 @@
-// metoda kompresji - własna wariacja algorytmu LZ78 - słownikowej bezstratnej kompresji danych
-// polecenie budowania: g++ -O3 -std=c++17 -o "%e" "%f"
 #include <algorithm>
 #include <bitset>
 #include <cctype>
@@ -19,6 +17,7 @@
 
 #include "helpers.h"
 #include "huffman.h"
+
 #define cfg "config.txt"
 #define dict_file "data/prob2/slownik.txt"
 #define flawed_text "data/prob2/tekstzpoli.txt"

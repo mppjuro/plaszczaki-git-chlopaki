@@ -14,7 +14,9 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+
 using namespace std;
+
 #ifndef MIN_GLOBALS_H
 #define MIN_GLOBALS_H
 #endif  // MIN_GLOBALS_H
