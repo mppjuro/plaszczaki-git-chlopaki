@@ -52,15 +52,6 @@ struct Compare {
     }
 };
 
-// string trim(const string& str) {
-//     size_t first = str.find_first_not_of(" \t\n\r");
-//     size_t last = str.find_last_not_of(" \t\n\r");
-//     if (first == string::npos || last == string::npos) {
-//         return "";
-//     }
-//     return str.substr(first, (last - first + 1));
-// }
-
 void printFileContent(const string& filename) {
     ifstream file(filename, ios::binary);
     if (!file.is_open()) {
@@ -97,34 +88,6 @@ void saveDictionaryAndTransformedText(const string& filename, const vector<strin
     outFile << text;
     outFile.close();
 }
-
-// Funkcja usuwająca znaki interpunkcyjne z ciągu znaków
-// string rmv_interpunction(const string& tekst) {
-//     string wynik;
-//     remove_copy_if(tekst.begin(), tekst.end(), back_inserter(wynik), [](char c) {
-//         return ispunct(static_cast<unsigned char>(c));
-//     });
-//     return wynik;
-// }
-
-// Funkcja tworząca mapę możliwych odwróceń liter i ich odbić lustrzanych
-// unordered_map<char, set<char>> mirrored_letters() {
-//     unordered_map<char, set<char>> mirrored_letters_map;
-//     mirrored_letters_map['a'] = {'a', 'e'};
-//     mirrored_letters_map['b'] = {'b', 'q', 'd', 'p'};
-//     mirrored_letters_map['c'] = {'c', 'u'};
-//     mirrored_letters_map['d'] = {'d', 'b', 'p', 'q'};
-//     mirrored_letters_map['e'] = {'e', 'a'};
-//     mirrored_letters_map['h'] = {'h', 'y'};
-//     mirrored_letters_map['m'] = {'m', 'w'};
-//     mirrored_letters_map['n'] = {'n', 'u'};
-//     mirrored_letters_map['p'] = {'p', 'b', 'q', 'd'};
-//     mirrored_letters_map['q'] = {'q', 'b', 'p', 'd'};
-//     mirrored_letters_map['u'] = {'u', 'n', 'c'};
-//     mirrored_letters_map['w'] = {'w', 'm'};
-//     mirrored_letters_map['y'] = {'y', 'h'};
-//     return mirrored_letters_map;
-// }
 
 string find_word_to_swap(const string& slowo, const unordered_map<char, set<char>>& mirrored_letters_map, const set<string>& slownik) {  // Funkcja sprawdzająca, czy odwrócenie liter w słowie daje słowo ze słownika
     set<string> processed_words;
