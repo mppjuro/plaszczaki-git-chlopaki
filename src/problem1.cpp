@@ -318,6 +318,10 @@ int problem1() {
             }
         }
     }
+    if (pairs_of_porters.empty()) {
+        cerr << "No pairs of porters available\n";
+        return 1;
+    }
 
     ofstream outFile(pairs_file);  // Zapisz pary tragarzy do pliku
     if (!outFile.is_open()) {
