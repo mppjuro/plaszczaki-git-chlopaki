@@ -16,7 +16,6 @@ cd plaszczaki-git-chlopaki
 ```
 3. Uruchomienie programu z głównego katalogu
 ```console
-cd ..
 ./plaszczaki (ewentualnie plaszczaki.exe na windowsie)
 ```
 Możliwa też jest ręczna kompilacja:
