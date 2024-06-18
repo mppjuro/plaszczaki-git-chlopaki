@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(plaszczaki)
 
+set(CMAKE_CXX_COMPILER g++) 
 set(SOURCE_DIR "${CMAKE_SOURCE_DIR}/src")
 
 # Lista katalogów do stworzenia
