@@ -24,9 +24,15 @@ void hire_the_guards(vector<Flatlanders> &guards) {  // Wybor straznikow z najwi
     });
 }
 
+void kill_guards(vector<Flatlanders> &guards) {
+    for (int i = 0; i < guards.size(); i++) {
+        if (guards[i].stamina < 2)
+            guards.erase(guards.begin() + i);
+    }
+}
+
 void prepare_path(int size, int arr[], vector<Pts> &pts, int stamina) {  // Wyznaczamy koordynaty przejscia straznika przez plot
 
-    int number_of_stops = 0;
     int number_of_rests = 0;
     int curr = arr[0];
     vector<pair<int, int>> stops;
@@ -45,7 +51,7 @@ void prepare_path(int size, int arr[], vector<Pts> &pts, int stamina) {  // Wyzn
                 break;
             }
             tmp = i + j + 1;
-            if (curr <= arr[tmp]) {
+            if (curr > arr[tmp]) {
                 furthest_move = j + 1;
                 have_to_rest = 0;
             }
@@ -54,7 +60,6 @@ void prepare_path(int size, int arr[], vector<Pts> &pts, int stamina) {  // Wyzn
             number_of_rests++;
         }
         if (!loop_completed && i + furthest_move < size) {
-            number_of_stops++;
             curr = arr[i + furthest_move];
             stops.emplace_back(curr, i + furthest_move);
         }
@@ -72,7 +77,7 @@ void prepare_path(int size, int arr[], vector<Pts> &pts, int stamina) {  // Wyzn
         cout << "x: " << pts[p.second].x << ", y: " << pts[p.second].y << ", brightness of the point: " << p.first << '\n';
     }
     cout << '\n';
-    cout << "Guard had to rest at " << number_of_rests << " stops.\n";
+    cout << "Guard had to listen to the melody " << number_of_rests << " times.\n";
 }
 
 int problem3() {
@@ -100,8 +105,15 @@ int problem3() {
 
     for (int i = 0; i < 10; i++) {  // Losujemy energie Plaszczakow, ktore moga zostac straznikami
         guard.number = i;
-        guard.stamina = rand() % 10 + 1;
+        guard.stamina = rand() % 6 + 0;
         guards.push_back(guard);
+    }
+    // zabijamy
+    kill_guards(guards);
+
+    if (guards.size() < 7) {
+        cout << "Not enough guards to protect our land \n";
+        return 1;
     }
 
     for (int i = 0; i < how_many_pts; i++) {  // Wczytujemy koordynaty z pliku jako punkty na trasach straznikow
@@ -109,7 +121,7 @@ int problem3() {
         input >> x >> y;
         point.x = x;
         point.y = y;
-        point.brightness = rand() % 100 + 1;
+        point.brightness = rand() % 89 + 1;
         if (i == 0) {
             first_x = x;
             first_y = y;
